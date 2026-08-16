@@ -1,0 +1,100 @@
+<section id="task">
+    <div class="wrap">
+        <div class="sh">
+            <div class="sh-label">The Task</div>
+            <div class="sh-title">Instruction Inference</div>
+            <div class="sh-sub">An agent assists a principal in reaching a goal by interpreting a single, often
+                underspecified callout. Instruction types are grounded in Grice&rsquo;s maxims: <em>incomplete</em>
+                violates Quantity, <em>ambiguous</em> violates Manner.</div>
+        </div>
+
+        <p class="note-line" style="margin-top:0;margin-bottom:.4rem">
+            Twenty scenarios over sixteen grid layouts &mdash; <b>eight clear</b>, <b>six incomplete</b>, and
+            <b>six ambiguous</b>. The agent sees the grid, the principal&rsquo;s movement, and the callout, then
+            must produce an instruction type, a natural-language response, and an ordered action list. Three
+            representative scenarios below; use the tabs to step through each one.
+        </p>
+
+        <div class="stim-grid">
+
+            <!-- ===== Example 1 · CLEAR ===== -->
+            <div class="stim" data-caps='[
+                "<b>Initial.</b> The agent and principal start apart. Red and yellow keys are scattered; the gem sits behind a red and a yellow door.",
+                "<b>Observed.</b> The principal announces their own subgoal and delegates the other. Both keys are named, both are needed, and the division of labour is stated outright — nothing is left to infer.",
+                "<b>Completed.</b> The agent collects the yellow key and passes it; the principal collects the red one. Both doors open and the gem is retrieved."
+            ]'>
+                <div class="stim-head">
+                    <span class="stim-kind sk-clear">Clear &middot; scenario 3</span>
+                    <div class="stim-utt">I&rsquo;m going for the red key, can you get the yellow key?</div>
+                    <div class="stim-meta">grid 6.txt &middot; keys &middot; 6.1.keys</div>
+                </div>
+                <div class="stim-tabs">
+                    <button class="stim-tab on">Initial</button>
+                    <button class="stim-tab">Observed</button>
+                    <button class="stim-tab">Completed</button>
+                </div>
+                <div class="stim-stage">
+                    <img src="assets/stimuli/6.1.keys_0_init.gif" alt="Scenario 3 — initial grid">
+                    <img src="assets/stimuli/6.1.keys_1_observed.gif" alt="Scenario 3 — observed grid" hidden>
+                    <img src="assets/stimuli/6.1.keys_2_completed.gif" alt="Scenario 3 — completed grid" hidden>
+                </div>
+                <div class="stim-cap"><b>Initial.</b> The agent and principal start apart. Red and yellow keys are
+                    scattered; the gem sits behind a red and a yellow door.</div>
+            </div>
+
+            <!-- ===== Example 2 · INCOMPLETE ===== -->
+            <div class="stim" data-caps='[
+                "<b>Initial.</b> Several keys of different colours are on the board, and more than one door stands between the principal and a gem.",
+                "<b>Observed.</b> The principal moves adjacent to a door and says “this door” without naming a colour — a Quantity violation. The colour has to be read off the principal’s position, not the sentence.",
+                "<b>Completed.</b> The agent resolves “this door” from the principal’s location, fetches the matching key, and passes it so the gem can be retrieved."
+            ]'>
+                <div class="stim-head">
+                    <span class="stim-kind sk-incomplete">Incomplete &middot; scenario 16</span>
+                    <div class="stim-utt">Can you get the key for this door?</div>
+                    <div class="stim-meta">grid 11.txt &middot; keys &middot; 11.1.keys</div>
+                </div>
+                <div class="stim-tabs">
+                    <button class="stim-tab on">Initial</button>
+                    <button class="stim-tab">Observed</button>
+                    <button class="stim-tab">Completed</button>
+                </div>
+                <div class="stim-stage">
+                    <img src="assets/stimuli/11.1.keys_0_init.gif" alt="Scenario 16 — initial grid">
+                    <img src="assets/stimuli/11.1.keys_1_observed.gif" alt="Scenario 16 — observed grid" hidden>
+                    <img src="assets/stimuli/11.1.keys_2_completed.gif" alt="Scenario 16 — completed grid" hidden>
+                </div>
+                <div class="stim-cap"><b>Initial.</b> Several keys of different colours are on the board, and more than
+                    one door stands between the principal and a gem.</div>
+            </div>
+
+            <!-- ===== Example 3 · AMBIGUOUS ===== -->
+            <div class="stim" data-caps='[
+                "<b>Initial.</b> The grid contains more than one red door, each opening onto a different route.",
+                "<b>Observed.</b> The principal says “there” — a deictic with no unique referent, so the callout admits two readings. This is a Manner violation: the sentence is well formed but underdetermines the target.",
+                "<b>Completed.</b> The agent disambiguates from the principal’s trajectory rather than the words, unlocks the door on their actual route, and the gem is retrieved."
+            ]'>
+                <div class="stim-head">
+                    <span class="stim-kind sk-ambiguous">Ambiguous &middot; scenario 8</span>
+                    <div class="stim-utt">Can you open the red door there?</div>
+                    <div class="stim-meta">grid 15.txt &middot; doors &middot; 15.1.doors</div>
+                </div>
+                <div class="stim-tabs">
+                    <button class="stim-tab on">Initial</button>
+                    <button class="stim-tab">Observed</button>
+                    <button class="stim-tab">Completed</button>
+                </div>
+                <div class="stim-stage">
+                    <img src="assets/stimuli/15.1.doors_0_init.gif" alt="Scenario 8 — initial grid">
+                    <img src="assets/stimuli/15.1.doors_1_observed.gif" alt="Scenario 8 — observed grid" hidden>
+                    <img src="assets/stimuli/15.1.doors_2_completed.gif" alt="Scenario 8 — completed grid" hidden>
+                </div>
+                <div class="stim-cap"><b>Initial.</b> The grid contains more than one red door, each opening onto a
+                    different route.</div>
+            </div>
+
+        </div>
+
+        <p class="hint">stimuli from <code>dataset/stimuli/</code> &middot; the same animations shown to the 52 human
+            participants</p>
+    </div>
+</section>

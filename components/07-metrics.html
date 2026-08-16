@@ -1,0 +1,88 @@
+<section id="metrics">
+    <div class="wrap">
+        <div class="sh">
+            <div class="sh-label">Evaluation</div>
+            <div class="sh-title">Six Metrics</div>
+            <div class="sh-sub">Action metrics cover what Tomcat itself performs. Plan metrics extend to the
+                principal&rsquo;s subsequent steps, so a response can have perfect actions and still fail as a plan.
+            </div>
+        </div>
+
+        <div class="met-grid">
+
+            <div class="met">
+                <div class="met-top">
+                    <span class="met-ico">&#127919;</span>
+                    <span class="met-t">Instruction Accuracy</span>
+                    <span class="met-scale">binary</span>
+                </div>
+                <div class="met-d">Did Tomcat classify the callout correctly as clear or unclear? Scored against the
+                    dataset&rsquo;s Type label.</div>
+                <div class="met-den">denominator: 1</div>
+            </div>
+
+            <div class="met">
+                <div class="met-top">
+                    <span class="met-ico">&#128142;</span>
+                    <span class="met-t">Intent Accuracy</span>
+                    <span class="met-scale">binary</span>
+                </div>
+                <div class="met-d">Did the response identify the gem the principal actually wants? Where several gems
+                    are equally consistent, naming any of them counts.</div>
+                <div class="met-den">denominator: 1</div>
+            </div>
+
+            <div class="met">
+                <div class="met-top">
+                    <span class="met-ico">&#9989;</span>
+                    <span class="met-t">Action Feasibility</span>
+                    <span class="met-scale">fraction</span>
+                </div>
+                <div class="met-d">Share of Tomcat&rsquo;s own actions that are executable in the grid &mdash; the key
+                    exists, is reachable, and the colour matches the door. Efficiency is not judged here.</div>
+                <div class="met-den">denominator: GT agent actions</div>
+            </div>
+
+            <div class="met">
+                <div class="met-top">
+                    <span class="met-ico">&#128200;</span>
+                    <span class="met-t">Action Optimality</span>
+                    <span class="met-scale">fraction</span>
+                </div>
+                <div class="met-d">Share of Tomcat&rsquo;s actions that are the optimal ones. A feasible but longer
+                    route scores here even though it passed feasibility.</div>
+                <div class="met-den">denominator: GT agent actions</div>
+            </div>
+
+            <div class="met">
+                <div class="met-top">
+                    <span class="met-ico">&#128736;&#65039;</span>
+                    <span class="met-t">Plan Feasibility</span>
+                    <span class="met-scale">fraction</span>
+                </div>
+                <div class="met-d">Share of the full plan &mdash; agent actions <em>and</em> the principal&rsquo;s
+                    subsequent unlock and retrieve steps &mdash; that is executable.</div>
+                <div class="met-den">denominator: GT atomic actions</div>
+            </div>
+
+            <div class="met">
+                <div class="met-top">
+                    <span class="met-ico">&#129518;</span>
+                    <span class="met-t">Plan Optimality</span>
+                    <span class="met-scale">binary</span>
+                </div>
+                <div class="met-d">Is the whole action sequence correct <em>and</em> correctly ordered? A plan that
+                    passes a key before collecting it fails, however feasible each step looks alone.</div>
+                <div class="met-den">denominator: 1</div>
+            </div>
+
+        </div>
+
+        <p class="note-line">
+            <b>How the denominator is built.</b> <code>GT_atom_count</code> is the number of <em>atomic</em> actions in
+            the ground-truth Actions block &mdash; agent actions plus the principal&rsquo;s. Compound phrases split:
+            &ldquo;pass two keys&rdquo; counts as two, not one. A surplus action that <em>substitutes</em> for a
+            ground-truth action of the same type does not enlarge the denominator; a genuinely extra action does.
+        </p>
+    </div>
+</section>

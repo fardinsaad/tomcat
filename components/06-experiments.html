@@ -1,0 +1,81 @@
+<section id="experiments">
+    <div class="wrap">
+        <div class="sh">
+            <div class="sh-label">Experiment 1</div>
+            <div class="sh-title">Environmental Perturbations</div>
+            <div class="sh-sub">Six conditions over the same twenty scenarios. Three perturbations provably preserve
+                the optimal plan; the fourth deliberately changes it. Without P4, &ldquo;nothing changed&rdquo; would be
+                evidence <em>for</em> the reviewer&rsquo;s concern rather than against it.</div>
+        </div>
+
+        <div class="cond-grid">
+
+            <div class="cond c-base">
+                <div class="cond-k">original</div>
+                <div class="cond-t">Original</div>
+                <div class="cond-d">The published v1 scenarios, run on the endpoints available at the time. Retained
+                    untouched as the reference point for the paper&rsquo;s existing results.</div>
+                <span class="cond-inv inv-yes">plan &middot; reference</span>
+                <div class="cond-f"><span>120 calls</span><span>published</span></div>
+            </div>
+
+            <div class="cond c-base">
+                <div class="cond-k">rerun</div>
+                <div class="cond-t">Original re-run</div>
+                <div class="cond-d">The same unperturbed scenarios re-run on the current serving stack. Several original
+                    endpoints were retired, and all replacements serve fp8 weights &mdash; so every perturbation must be
+                    compared against this, not against v1.</div>
+                <span class="cond-inv inv-yes">plan unchanged</span>
+                <div class="cond-f"><span>120 calls</span><span>complete</span></div>
+            </div>
+
+            <div class="cond c-p1">
+                <div class="cond-k">p1_padding</div>
+                <div class="cond-t">Marginal padding</div>
+                <div class="cond-d">A wall border added on all four sides. Every coordinate shifts by (+1, +1);
+                    reachability, region structure, and the optimal plan are untouched. Only the numbers change.</div>
+                <span class="cond-inv inv-yes">plan-invariant</span>
+                <div class="cond-f"><span>120 calls</span><span>complete</span></div>
+            </div>
+
+            <div class="cond c-p2">
+                <div class="cond-k">p2_color</div>
+                <div class="cond-t">Colour permutation</div>
+                <div class="cond-d">red &rarr; blue &rarr; yellow &rarr; red, applied consistently across the grid
+                    glyphs <em>and</em> the instruction text. The lock-and-key structure is preserved exactly; only the
+                    labels rotate.</div>
+                <span class="cond-inv inv-yes">plan-invariant</span>
+                <div class="cond-f"><span>120 calls</span><span>complete</span></div>
+            </div>
+
+            <div class="cond c-p3">
+                <div class="cond-k">p3_distractor</div>
+                <div class="cond-t">Distractor keys</div>
+                <div class="cond-d">Extra keys that provably cannot matter &mdash; either a colour with no door
+                    anywhere on the board, or a key placed in a region the agent cannot reach. The optimal plan is
+                    unchanged; the search space is not.</div>
+                <span class="cond-inv inv-yes">plan-invariant</span>
+                <div class="cond-f"><span>120 calls</span><span>complete</span></div>
+            </div>
+
+            <div class="cond c-p4">
+                <div class="cond-k">p4_relocate</div>
+                <div class="cond-t">Key relocation</div>
+                <div class="cond-d">Keys moved within their own door-bounded region, at least two cells from their
+                    original position, never onto the principal&rsquo;s route. Intent is preserved but distances are
+                    not &mdash; so the correct answer genuinely differs.</div>
+                <span class="cond-inv inv-no">plan changes by design</span>
+                <div class="cond-f"><span>120 calls</span><span>complete</span></div>
+            </div>
+
+        </div>
+
+        <p class="note-line">
+            <b>What each condition tests.</b> P1&ndash;P3 ask whether performance survives changes that <em>should</em>
+            be irrelevant &mdash; a model that memorised surface patterns would break here, and a model that reasoned
+            would not. P4 asks the converse: whether the grid is a real constraint at all. If a model reproduces the
+            original answer after the keys have moved, it was never reading the grid. Together the four separate
+            <em>robustness</em> from <em>rigidity</em>; either one alone is ambiguous.
+        </p>
+    </div>
+</section>

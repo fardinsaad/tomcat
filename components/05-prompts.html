@@ -1,0 +1,190 @@
+<section id="prompts">
+    <div class="wrap">
+        <div class="sh">
+            <div class="sh-label">Prompt Structure</div>
+            <div class="sh-title">CP versus Fs-CoT</div>
+            <div class="sh-sub">Both variants share an identical skeleton &mdash; task framing, objectives, rules, the
+                live grid, and the query. They diverge only in what fills the demonstration slot, and Fs-CoT adds four
+                extra rules. Everything else is held constant.</div>
+        </div>
+
+        <div class="pr-switch">
+            <button class="pr-btn on" data-pane="cp">CP</button>
+            <button class="pr-btn" data-pane="fs">Fs-CoT</button>
+        </div>
+
+        <div class="pr-panes">
+
+            <!-- ============ CP PANE ============ -->
+            <div class="pr-pane" data-pane="cp">
+                <div class="pr-cols">
+
+                    <div class="pr-card shared">
+                        <div class="pr-head">
+                            <span class="pr-name">Shared skeleton</span>
+                            <span class="pr-flag f-shared">identical in both</span>
+                        </div>
+                        <div class="pr-body"><span class="pr-k">Intro</span>
+  You assist a human in a cooperative planning domain
+  called Doors, Keys, and Gems, set in a gridworld…
+
+<span class="pr-k">Figure 1</span>  <span class="pr-dim">(reference grid, 3.txt)</span>
+
+<span class="pr-k">Human's objective</span>
+  The human's goal is to retrieve a specific gem by
+  providing only a single instruction. However, the
+  human's instruction could be ambiguous or lack
+  specificity…
+
+<span class="pr-k">Your objective</span>
+  …infer which gem the human intends to collect and
+  take only the essential actions… movements are
+  optimized to ensure the number of steps is minimal.
+
+<span class="pr-k">Rules of the Game</span>  <span class="pr-dim">(9 rules)</span>
+  - one callout per configuration
+  - callouts either request keys or request unlocking
+  - only a same-colour key opens a door; single use
+  - collected keys are passed to the human
+  - prefer efficient, obstacle-free routes
+  - instructions may not be explicit …
+
+<span class="pr-k">Current Grid Layout</span>
+  <span class="pr-dim">&lt;grid&gt; + object positions as (row, column)</span>
+
+<span class="pr-k">Query</span>
+  ```
+  Human Action: <span class="pr-dim">&lt;movement&gt;</span>
+  Instruction:  <span class="pr-dim">&lt;callout&gt;</span>
+  Type:     &lt;clear or unclear + reasoning&gt;
+  Response: &lt;chain-of-thought response&gt;
+  Actions:  &lt;optimal action list&gt;
+  ```</div>
+                    </div>
+
+                    <div class="pr-card only-cp">
+                        <div class="pr-head">
+                            <span class="pr-name">CP demonstration slot</span>
+                            <span class="pr-flag f-cp">exp = True</span>
+                        </div>
+                        <div class="pr-body"><span class="pr-k2">Two worked problems, each with figures</span>
+
+--- Problem (1) demonstrating initial, observed,
+    completed grids with figures and the example.
+
+<span class="pr-k2">Figure 2</span>: Initial Grid Configuration
+  <span class="pr-dim">&lt;grid&gt; + object positions</span>
+  -- Initial Grid: displays the initial positions of
+     you, human, keys (red, yellow), doors, and gems.
+
+<span class="pr-k2">Figure 3</span>: Observed Grid Configuration
+  -- Observed Grid: The human moves left toward the
+     red door from (3,6) to (3,2) and gives the
+     instruction, "Can you pass me the red key?"
+     From this, you infer the human's intentions
+     based on their movement and location.
+
+<span class="pr-k2">Figure 4</span>: Completed Grid Configuration
+  -- Completed Grid: You infer the human intends to
+     collect the gem beyond the red door. However,
+     after the red door there is also a yellow door
+     blocking the path. In response you collect both
+     the red and yellow keys and pass them…
+
+--- Problem (2) <span class="pr-dim">— Figures 5, 6, 7, same shape</span>
+
+<span class="pr-dim">Commonsense narration of how the grid works.
+No labelled Type / Response / Actions exemplars.</span></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ============ Fs-CoT PANE ============ -->
+            <div class="pr-pane" data-pane="fs" hidden>
+                <div class="pr-cols">
+
+                    <div class="pr-card shared">
+                        <div class="pr-head">
+                            <span class="pr-name">Shared skeleton</span>
+                            <span class="pr-flag f-shared">identical in both</span>
+                        </div>
+                        <div class="pr-body"><span class="pr-k">Intro</span>
+  You assist a human in a cooperative planning domain
+  called Doors, Keys, and Gems, set in a gridworld…
+
+<span class="pr-k">Figure 1</span>  <span class="pr-dim">(reference grid, 3.txt)</span>
+
+<span class="pr-k">Human's objective</span>  <span class="pr-dim">(identical)</span>
+<span class="pr-k">Your objective</span>     <span class="pr-dim">(identical)</span>
+
+<span class="pr-k">Rules of the Game</span>  <span class="pr-dim">(9 rules …)</span>
+<span class="pr-k3">  + 4 rules appended for Fs-CoT only:</span>
+<span class="pr-k3">  - Always generate your response by cross-checking</span>
+<span class="pr-k3">    and verifying it against the current grid.</span>
+<span class="pr-k3">  - When traversing the grid, minimize and optimize</span>
+<span class="pr-k3">    your path, avoiding collisions with walls (W).</span>
+<span class="pr-k3">  - Infer the human's desired gem based on their</span>
+<span class="pr-k3">    movement, instruction, and grid configuration.</span>
+<span class="pr-k3">  - Apply theory of mind principles to infer the</span>
+<span class="pr-k3">    human's desired gem from actions and instructions.</span>
+
+<span class="pr-k">Current Grid Layout</span>
+  <span class="pr-dim">&lt;grid&gt; + object positions as (row, column)</span>
+
+<span class="pr-k">Query</span>
+  ```
+  Human Action: <span class="pr-dim">&lt;movement&gt;</span>
+  Instruction:  <span class="pr-dim">&lt;callout&gt;</span>
+  Type / Response / Actions: <span class="pr-dim">&lt;to generate&gt;</span>
+  ```</div>
+                    </div>
+
+                    <div class="pr-card only-fs">
+                        <div class="pr-head">
+                            <span class="pr-name">Fs-CoT demonstration slot</span>
+                            <span class="pr-flag f-fs">exp = False &middot; k = 7</span>
+                        </div>
+                        <div class="pr-body"><span class="pr-k3">Seven labelled exemplars, no figures</span>
+<span class="pr-dim">Each one is a complete input → output trace.</span>
+
+<span class="pr-k3">Human Action:</span> The human moves downward from
+  their current position at (6,4) to (8,4), where
+  they provide the instruction.
+<span class="pr-k3">Instruction:</span> Can you pass me the blue key?
+<span class="pr-k3">Type:</span> Unclear. Based on the human's movement,
+  instruction and the current grid configuration, I
+  infer that the human moved to (8,4) to collect the
+  gem at (8,9) located beyond the blue door and red
+  door at (8,6) and (8,8)… Since the human does not
+  mention passing the red key, it is unclear.
+<span class="pr-k3">Response:</span> …So I will collect one blue key and one
+  red key located at (3,8) and (5,8). To minimize
+  movement, I will first pick up the blue key at
+  (3,8) followed by the red key at (5,8)…
+<span class="pr-k3">Actions:</span>
+  1) Collect: blue_key at (3,8).
+  2) Collect: red_key at (5,8).
+  3) Pass: blue_key and red_key to the human at (8,4).
+  4) Unlock: human unlocks the Blue_door at (8,6)
+     and the Red_door at (8,8).
+  5) Retrieve: human retrieves gem at (8,9).
+
+<span class="pr-dim">… ×6 more, mixing clear and unclear cases,
+key-requests and door-requests.</span></div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <p class="pr-note">
+            The asymmetry is the point. <b>CP</b> supplies commonsense knowledge &mdash; grids rendered as figures with
+            prose explaining how the domain behaves &mdash; but never shows a labelled answer. <b>Fs-CoT</b> supplies
+            seven fully worked <em>Type &rarr; Response &rarr; Actions</em> traces but no figures. Same task, same
+            rules, same grid: what changes is whether the model is told <em>how the world works</em> or shown
+            <em>what a good answer looks like</em>.
+        </p>
+    </div>
+</section>

@@ -1,0 +1,222 @@
+<section id="flow">
+    <div class="wrap">
+        <div class="sh">
+            <div class="sh-label">Execution Flow</div>
+            <div class="sh-title">Six Stages to Resubmission</div>
+            <div class="sh-sub">Stages 1&ndash;3 are finished: the perturbation suite is generated, verified, and run.
+                Stage 4 is the live front. Stage 5 scaffolds the two additional domains; Stage 6 writes it up.</div>
+        </div>
+
+        <!-- Stage track stepper -->
+        <div class="stage-track">
+            <div class="track-step s-complete">
+                <div class="ts-circle">01</div>
+                <div class="ts-label">Design</div>
+            </div>
+            <div class="track-conn tc-complete"></div>
+            <div class="track-step s-complete">
+                <div class="ts-circle">02</div>
+                <div class="ts-label">Ground Truth</div>
+            </div>
+            <div class="track-conn tc-complete"></div>
+            <div class="track-step s-complete">
+                <div class="ts-circle">03</div>
+                <div class="ts-label">Model Runs</div>
+            </div>
+            <div class="track-conn tc-active"></div>
+            <div class="track-step s-active">
+                <div class="ts-circle">04</div>
+                <div class="ts-label">Annotation</div>
+            </div>
+            <div class="track-conn"></div>
+            <div class="track-step s-planned">
+                <div class="ts-circle">05</div>
+                <div class="ts-label">New Domains</div>
+            </div>
+            <div class="track-conn"></div>
+            <div class="track-step s-planned">
+                <div class="ts-circle">06</div>
+                <div class="ts-label">Write-up</div>
+            </div>
+        </div>
+
+        <div class="pipeline-scroller">
+            <div class="pipeline">
+
+                <!-- Stage 1 -->
+                <div class="stage s-complete">
+                    <div class="stage-n">01</div>
+                    <div class="s-num">Stage 01</div>
+                    <span class="s-icon">&#129513;</span>
+                    <div class="s-title">Perturbation Design</div>
+                    <div class="s-desc">Four perturbation families generated from a single seeded script. Three are
+                        provably plan-invariant; the fourth deliberately changes the optimal plan.</div>
+                    <div class="chips">
+                        <span class="chip">64 grids</span>
+                        <span class="chip">seeded</span>
+                        <span class="chip">P1&ndash;P4</span>
+                    </div>
+                    <span class="badge b-green">&#10003; Complete</span>
+                    <div class="s-file">make_perturbations.py</div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">Output</span><span
+                                class="dr-v">DKG-perturbations/grids/</span></div>
+                        <div class="dr-row"><span class="dr-k">Invariants</span><span class="dr-v">1&nbsp;378 checks, 0
+                                failures</span></div>
+                        <div class="dr-row"><span class="dr-k">Checker</span><span
+                                class="dr-v">verify_perturbations.py</span></div>
+                    </div>
+                </div>
+
+                <div class="conn">
+                    <div class="conn-line cl-complete"></div>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="stage s-complete">
+                    <div class="stage-n">02</div>
+                    <div class="s-num">Stage 02</div>
+                    <span class="s-icon">&#128207;</span>
+                    <div class="s-title">Ground Truth</div>
+                    <div class="s-desc">P1&ndash;P3 ground truth derives mechanically from the original, since the plan
+                        is unchanged. All 20 P4 scenarios were re-derived by hand against the moved keys.</div>
+                    <div class="chips">
+                        <span class="chip">P1&ndash;P3 derived</span>
+                        <span class="chip">P4 hand-written</span>
+                        <span class="chip">region-checked</span>
+                    </div>
+                    <span class="badge b-green">&#10003; Complete</span>
+                    <div class="s-file">scenarios_*.csv</div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">Barriers</span><span class="dr-v">doors and walls</span>
+                        </div>
+                        <div class="dr-row"><span class="dr-k">Constraint</span><span class="dr-v">keys stay in their
+                                own region</span></div>
+                        <div class="dr-row"><span class="dr-k">Pinned</span><span class="dr-v">principal-collected
+                                keys</span></div>
+                    </div>
+                </div>
+
+                <div class="conn">
+                    <div class="conn-line cl-complete"></div>
+                </div>
+
+                <!-- Stage 3 -->
+                <div class="stage s-complete">
+                    <div class="stage-n">03</div>
+                    <div class="s-num">Stage 03</div>
+                    <span class="s-icon">&#9889;</span>
+                    <div class="s-title">Model Runs</div>
+                    <div class="s-desc">3 models &times; 2 prompt variants &times; 6 conditions &times; 20 scenarios.
+                        Providers pinned with fallbacks disabled so precision is held constant throughout.</div>
+                    <div class="chips">
+                        <span class="chip">720 calls</span>
+                        <span class="chip">provider-pinned</span>
+                        <span class="chip">0 outstanding</span>
+                    </div>
+                    <span class="badge b-green">&#10003; Complete</span>
+                    <div class="s-file">test_agent-perturbations.ipynb</div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">GPT-4o</span><span class="dr-v">OpenAI</span></div>
+                        <div class="dr-row"><span class="dr-k">DeepSeek-R1</span><span class="dr-v">OpenRouter &rarr;
+                                Novita</span></div>
+                        <div class="dr-row"><span class="dr-k">Gemma-3-27B</span><span class="dr-v">OpenRouter &rarr;
+                                DeepInfra</span></div>
+                    </div>
+                </div>
+
+                <div class="conn">
+                    <div class="conn-line cl-active"></div>
+                </div>
+
+                <!-- Stage 4 — ACTIVE -->
+                <div class="stage s-active">
+                    <div class="stage-n">04</div>
+                    <div class="s-num">Stage 04</div>
+                    <span class="s-icon">&#9999;&#65039;</span>
+                    <div class="s-title">Metric Annotation</div>
+                    <div class="s-desc">Six metrics scored per sample against the ground-truth action list. Whether an
+                        extra action is <em>incorrect</em> or merely <em>inefficient</em> needs the grid, not a parser.
+                    </div>
+                    <div class="chips">
+                        <span class="chip">6 metrics</span>
+                        <span class="chip">by hand</span>
+                        <span class="chip">v1 convention</span>
+                    </div>
+                    <span class="badge b-amber">&#9679; In Progress</span>
+                    <div class="s-file">ToM Dataset - v2 perturbations (ANNOTATION).xlsx</div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">Denominator</span><span class="dr-v">GT atomic action
+                                count</span></div>
+                        <div class="dr-row"><span class="dr-k">Inefficient</span><span class="dr-v">counts as
+                                matched</span></div>
+                        <div class="dr-row"><span class="dr-k">Incorrect</span><span class="dr-v">enters the
+                                denominator</span></div>
+                    </div>
+                </div>
+
+                <div class="conn">
+                    <div class="conn-line cl-pending"></div>
+                </div>
+
+                <!-- Stage 5 — ADDITIONAL DOMAINS -->
+                <div class="stage s-queued">
+                    <div class="stage-n">05</div>
+                    <div class="s-num">Stage 05</div>
+                    <span class="s-icon">&#127859;</span>
+                    <div class="s-title">Additional Domains</div>
+                    <div class="s-desc">Design and implementation of Overcooked and Scientific Collaboration &mdash; two
+                        environments that keep the instruction taxonomy but drop the gridworld, testing whether the
+                        result is about the task or the maze.</div>
+                    <div class="chips">
+                        <span class="chip">Overcooked</span>
+                        <span class="chip">Sci-Collab</span>
+                        <span class="chip">scaffolded</span>
+                    </div>
+                    <span class="badge b-queued">&#9633; Queued</span>
+                    <div class="s-file">Overcooked/ &middot; Scientific-Collaboration/</div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">Reuses</span><span class="dr-v">agent.py prompt
+                                skeleton</span></div>
+                        <div class="dr-row"><span class="dr-k">Scope</span><span class="dr-v">AE: 1&ndash;2 alternative
+                                environments</span></div>
+                        <div class="dr-row"><span class="dr-k">Status</span><span class="dr-v">folders scaffolded,
+                                unrun</span></div>
+                    </div>
+                </div>
+
+                <div class="conn">
+                    <div class="conn-line cl-pending"></div>
+                </div>
+
+                <!-- Stage 6 -->
+                <div class="stage s-planned">
+                    <div class="stage-n">06</div>
+                    <div class="s-num">Stage 06</div>
+                    <span class="s-icon">&#128220;</span>
+                    <div class="s-title">Analysis &amp; Write-up</div>
+                    <div class="s-desc">Condition means, significance tests, pairwise agreement against the re-run
+                        baseline, TikZ figures, and the Environmental Perturbations section.</div>
+                    <div class="chips">
+                        <span class="chip">TikZ</span>
+                        <span class="chip">sig tests</span>
+                        <span class="chip">due Aug 30</span>
+                    </div>
+                    <span class="badge b-slate">&#9675; Planned</span>
+                    <div class="s-file">ToM-CURRENT-Claude-edits.tex</div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">Figure 1</span><span class="dr-v">metric &times;
+                                condition line chart</span></div>
+                        <div class="dr-row"><span class="dr-k">Figure 2</span><span class="dr-v">2&times;2 agreement
+                                subfigures</span></div>
+                        <div class="dr-row"><span class="dr-k">Deadline</span><span class="dr-v">30 August 2026</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <p class="hint">&larr; scroll horizontally on small screens &middot; hover a stage for details</p>
+    </div>
+</section>

@@ -1,0 +1,40 @@
+# ---- OS cruft ----
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+$RECYCLE.BIN/
+
+# ---- Editors ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+
+# ---- Local dev servers / caches ----
+.cache/
+.parcel-cache/
+node_modules/
+npm-debug.log*
+yarn-error.log
+*.log
+
+# ---- Jekyll (GitHub Pages builds server-side; local builds stay local) ----
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# ---- Secrets: nothing here needs them, but never let one slip in ----
+.env
+.env.*
+*.key
+*.pem
+secrets.json
+
+# ---- Scratch ----
+tmp/
+temp/
+*.bak
+*.orig

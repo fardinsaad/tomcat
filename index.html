@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tomcat — Instruction Inference Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Applied before first paint so a saved theme never flashes the default. -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('tomcat-theme');
+                document.documentElement.dataset.theme =
+                    ['midnight', 'obsidian', 'abyss', 'plum'].indexOf(t) > -1 ? t : 'midnight';
+            } catch (e) { document.documentElement.dataset.theme = 'midnight'; }
+        })();
+    </script>
+</head>
+
+<body>
+
+    <!-- ===== NAV (inline — renders instantly, no fetch delay) ===== -->
+    <nav>
+        <div class="nav-inner">
+            <span class="nav-brand">TOMCAT</span>
+            <div class="nav-links">
+                <a href="#flow">Execution</a>
+                <a href="#matrix">Annotation</a>
+                <a href="#task">Task</a>
+                <a href="#prompts">Prompts</a>
+                <a href="#experiments">Experiments</a>
+                <a href="#metrics">Metrics</a>
+                <a href="#domains">Domains</a>
+            </div>
+            <div class="theme-pick" role="group" aria-label="Colour theme">
+                <span class="theme-pick-l">Theme</span>
+                <button class="tsw tsw-midnight" data-theme="midnight" title="Midnight"
+                    aria-label="Midnight theme" aria-pressed="true"></button>
+                <button class="tsw tsw-plum" data-theme="plum" title="Plum" aria-label="Plum theme"
+                        aria-pressed="false"></button>
+                <button class="tsw tsw-obsidian" data-theme="obsidian" title="Obsidian"
+                    aria-label="Obsidian theme" aria-pressed="false"></button>
+                <button class="tsw tsw-abyss" data-theme="abyss" title="Abyss" aria-label="Abyss theme"
+                    aria-pressed="false"></button>
+            </div>
+            <div class="nav-live"><span class="live-dot"></span> Annotation Active</div>
+        </div>
+    </nav>
+
+    <!-- ===== BODY SKELETON
+         Each slot is replaced with its component on DOMContentLoaded.
+         The <div> placeholders are never visible to the user.
+         Numbers match the component filenames. ===== -->
+    <div data-component="components/01-hero.html"></div>
+    <div data-component="components/02-flow.html"></div>
+    <div data-component="components/03-matrix.html"></div>
+    <div data-component="components/04-task.html"></div>
+    <div data-component="components/05-prompts.html"></div>
+    <div data-component="components/06-experiments.html"></div>
+    <div data-component="components/07-metrics.html"></div>
+    <div data-component="components/08-domains.html"></div>
+    <div data-component="components/09-roadmap.html"></div>
+
+    <!-- ===== FOOTER (inline — always present) ===== -->
+    <footer>
+        <div class="wrap">
+            <div class="footer-text">TOMCAT · NC State University + TU Delft · August 2026 ·
+                <em>AIJ minor revision — annotation in progress</em>
+            </div>
+            <div class="model-row">
+                <span class="model-pill"><span class="mp-dot" style="background:#6366f1"></span> GPT-4o — CP &amp;
+                    Fs-CoT</span>
+                <span class="model-pill"><span class="mp-dot" style="background:#14b8a6"></span> DeepSeek-R1 — CP &amp;
+                    Fs-CoT</span>
+                <span class="model-pill"><span class="mp-dot" style="background:#a78bfa"></span> Gemma-3-27B — CP &amp;
+                    Fs-CoT</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js" defer></script>
+
+</body>
+
+</html>
