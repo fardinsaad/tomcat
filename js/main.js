@@ -249,6 +249,59 @@ function initThemes() {
     });
 }
 
+// ─── MATRIX MARGINS (component 03) ───────────────────────────────────────────
+// Row totals, column totals, and the grand total in the corner — all derived
+// from the cells actually in the DOM. Edit a cell's status class and every
+// margin follows; nothing here is hard-coded.
+function initMatrixTotals() {
+    const table = document.querySelector('.mx-table');
+    if (!table) return;
+    const PER  = 20;
+    const rows = [...table.querySelectorAll('tbody tr')];
+    const DONE = '.c-done, .c-pub';        // counted as annotated
+
+    const fill = (td, total, done) => {
+        if (!td) return;
+        td.querySelector('.mx-tn').textContent  = total.toLocaleString();
+        const sub = td.querySelector('.mx-tsub');
+        sub.textContent = done.toLocaleString() + ' done';
+        sub.classList.toggle('has-some', done > 0 && done < total);
+        sub.classList.toggle('all-done', done > 0 && done === total);
+    };
+
+    // ---- row margins ----
+    let grandTotal = 0, grandDone = 0;
+    rows.forEach(tr => {
+        const cells = [...tr.querySelectorAll('.mx-cell')];
+        const total = cells.length * PER;
+        const done  = cells.filter(c => c.matches(DONE)).length * PER;
+        grandTotal += total; grandDone += done;
+        fill(tr.querySelector('.mx-tot-row'), total, done);
+    });
+
+    // ---- column margins ----
+    const footCells = table.querySelectorAll('tfoot .mx-tot-col');
+    footCells.forEach((td, i) => {
+        let total = 0, done = 0;
+        rows.forEach(tr => {
+            const cell = tr.querySelectorAll('.mx-cell')[i];
+            if (!cell) return;
+            total += PER;
+            if (cell.matches(DONE)) done += PER;
+        });
+        fill(td, total, done);
+    });
+
+    // ---- grand total (corner) ----
+    const corner = table.querySelector('.mx-tot-corner');
+    if (corner) {
+        corner.querySelector('.mx-tn').textContent = grandTotal.toLocaleString();
+        corner.querySelector('.mx-tsub').textContent =
+            grandDone.toLocaleString() + ' / ' + grandTotal.toLocaleString() +
+            '  ·  ' + Math.round((grandDone / grandTotal) * 100) + '%';
+    }
+}
+
 // ─── BOOT ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
     initThemes();
@@ -260,4 +313,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     initStimTabs();
     initPromptSwitch();
     initMatrixRail();
+    initMatrixTotals();
 });

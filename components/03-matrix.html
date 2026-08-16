@@ -3,9 +3,10 @@
         <div class="sh">
             <div class="sh-label">Annotation Status</div>
             <div class="sh-title">Model &times; Variant &times; Condition</div>
-            <div class="sh-sub">Thirty-six cells of 20 scenarios each &mdash; 720 samples in total. Every cell has been
-                <em>run</em>; the badges track <em>metric annotation</em>. The Original column is the published v1
-                result and is not re-annotated.</div>
+            <div class="sh-sub">A fully crossed design: thirty-six cells of 20 scenarios each, 720 samples in total.
+                Every cell has been <em>run</em>; the badges track <em>metric annotation</em>. Margins show the design
+                total with the annotated count beneath. The Original column is the published v1 result and is not
+                re-annotated.</div>
         </div>
 
         <div class="mx-scroll">
@@ -19,6 +20,7 @@
                             <th class="">P2<small>colour permutation</small></th>
                             <th class="">P3<small>distractor keys</small></th>
                             <th class="">P4<small>key relocation</small></th>
+                        <th class="mx-th-tot">Total<small>per row</small></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,56 +29,80 @@
                             <td class="mx-cell c-pub"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-violet">&#10003; Published</span></td>
                             <td class="mx-cell c-done"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-green">&#10003; Annotated</span></td>
                             <td class="mx-cell c-next"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-indigo">&#9654; Next</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-tot mx-tot-row"><div class="mx-tn">&mdash;</div><div class="mx-tsub">&mdash;</div></td>
                         </tr>
                         <tr>
                             <td class="mx-rl v-fs"><div class="mx-model">GPT-4o</div><div class="mx-var">Fs-CoT</div></td>
                             <td class="mx-cell c-pub"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-violet">&#10003; Published</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-tot mx-tot-row"><div class="mx-tn">&mdash;</div><div class="mx-tsub">&mdash;</div></td>
                         </tr>
                         <tr>
                             <td class="mx-rl v-cp"><div class="mx-model">DeepSeek-R1</div><div class="mx-var">CP</div></td>
                             <td class="mx-cell c-pub"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-violet">&#10003; Published</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-tot mx-tot-row"><div class="mx-tn">&mdash;</div><div class="mx-tsub">&mdash;</div></td>
                         </tr>
                         <tr>
                             <td class="mx-rl v-fs"><div class="mx-model">DeepSeek-R1</div><div class="mx-var">Fs-CoT</div></td>
                             <td class="mx-cell c-pub"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-violet">&#10003; Published</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-tot mx-tot-row"><div class="mx-tn">&mdash;</div><div class="mx-tsub">&mdash;</div></td>
                         </tr>
                         <tr>
                             <td class="mx-rl v-cp"><div class="mx-model">Gemma-3-27B</div><div class="mx-var">CP</div></td>
                             <td class="mx-cell c-pub"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-violet">&#10003; Published</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-tot mx-tot-row"><div class="mx-tn">&mdash;</div><div class="mx-tsub">&mdash;</div></td>
                         </tr>
                         <tr>
                             <td class="mx-rl v-fs"><div class="mx-model">Gemma-3-27B</div><div class="mx-var">Fs-CoT</div></td>
                             <td class="mx-cell c-pub"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-violet">&#10003; Published</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
-                            <td class="mx-cell "><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-cell"><div class="mx-n">20<small>SAMPLES</small></div><span class="badge b-slate">&#9675; Not Started</span></td>
+                            <td class="mx-tot mx-tot-row"><div class="mx-tn">&mdash;</div><div class="mx-tsub">&mdash;</div></td>
                         </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="mx-rl mx-foot-label">
+                            <div class="mx-model">Total</div>
+                            <div class="mx-var">per condition</div>
+                        </td>
+                            <td class="mx-tot mx-tot-col"><div class="mx-tn">&mdash;</div><div class="mx-tsub">&mdash;</div></td>
+                            <td class="mx-tot mx-tot-col"><div class="mx-tn">&mdash;</div><div class="mx-tsub">&mdash;</div></td>
+                            <td class="mx-tot mx-tot-col"><div class="mx-tn">&mdash;</div><div class="mx-tsub">&mdash;</div></td>
+                            <td class="mx-tot mx-tot-col"><div class="mx-tn">&mdash;</div><div class="mx-tsub">&mdash;</div></td>
+                            <td class="mx-tot mx-tot-col"><div class="mx-tn">&mdash;</div><div class="mx-tsub">&mdash;</div></td>
+                            <td class="mx-tot mx-tot-col"><div class="mx-tn">&mdash;</div><div class="mx-tsub">&mdash;</div></td>
+                        <td class="mx-tot mx-tot-corner">
+                            <div class="mx-tn">&mdash;</div>
+                            <div class="mx-tsub">&mdash;</div>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
 
@@ -94,11 +120,12 @@
         </div>
 
         <p class="note-line">
-            Instruction Accuracy and Intent Accuracy are near-mechanical and pre-filled. <b>Plan Feasibility</b>,
-            <b>Action Feasibility</b>, and the two optimality metrics are scored by hand, because the distinction that
-            matters &mdash; is a surplus action <em>incorrect</em> (it serves a different goal, so it enters the
-            denominator) or merely <em>inefficient</em> (a valid alternative route to the same goal, so it does
-            not) &mdash; is only visible against the grid.
+            Every row and every column totals 120 &mdash; the design is balanced, so no model, variant, or condition
+            carries more weight than another in the aggregate. Instruction Accuracy and Intent Accuracy are
+            near-mechanical and pre-filled. <b>Plan Feasibility</b>, <b>Action Feasibility</b>, and the two optimality
+            metrics are scored by hand, because the distinction that matters &mdash; is a surplus action
+            <em>incorrect</em> (it serves a different goal, so it enters the denominator) or merely <em>inefficient</em>
+            (a valid alternative route to the same goal, so it does not) &mdash; is only visible against the grid.
         </p>
     </div>
 </section>
