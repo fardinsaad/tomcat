@@ -3544,3 +3544,507 @@ nav {
 .mx-foot-label .mx-model {
     color: var(--text-2)
 }
+
+
+/* =====================================================================
+   ===== HERO ROBOT ====================================================
+   Vector rebuild of the LLM-Agent robot from the project slides, sized
+   in `em` so it tracks the hero title's clamp() automatically.
+
+   The h1 becomes a flex row and the gradient moves to an inner span --
+   `background-clip: text` on the h1 itself would try to clip against the
+   SVG child too, which paints it out.
+
+   Animation is transform/opacity only (compositor-friendly) and is fully
+   disabled under prefers-reduced-motion.
+   ===================================================================== */
+
+.hero-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .22em;
+    background: none;
+    color: inherit;
+}
+
+.hero-title-text {
+    background: linear-gradient(140deg, #e0e7ff 0%, #a5b4fc 30%, #67e8f9 65%, #34d399 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.tom-bot {
+    width: 1.05em;
+    height: 1.05em;
+    flex: 0 0 auto;
+    overflow: visible;
+    filter: drop-shadow(0 0 10px rgba(47, 176, 196, .32));
+    animation: tbGlow 4.2s ease-in-out infinite;
+}
+
+.tb-head {
+    fill: url(#tbHelmet);
+    stroke: #123f6b;
+    stroke-width: 4.5
+}
+
+.tb-face {
+    fill: #306590;
+    stroke: #123f6b;
+    stroke-width: 4
+}
+
+.tb-ear,
+.tb-ball {
+    fill: #2fb0c4;
+    stroke: #123f6b;
+    stroke-width: 4
+}
+
+.tb-stem {
+    fill: none;
+    stroke: #123f6b;
+    stroke-width: 4;
+    stroke-linecap: round
+}
+
+.tb-eyes ellipse {
+    fill: #123f6b
+}
+
+.tb-brow {
+    fill: none;
+    stroke: #123f6b;
+    stroke-width: 2.8;
+    stroke-linecap: round
+}
+
+.tb-mouth {
+    fill: none;
+    stroke: #123f6b;
+    stroke-width: 3;
+    stroke-linecap: round
+}
+
+.tb-q {
+    fill: #2fb0c4;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    opacity: 0;
+    text-anchor: middle;
+}
+
+/* --- puzzled head tilt --------------------------------------------- */
+.tb-tilt {
+    transform-box: fill-box;
+    transform-origin: 50% 92%;
+    animation: tbTilt 7s ease-in-out infinite;
+}
+
+/* --- eyes scan side to side, then blink ---------------------------- */
+.tb-eyes {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    animation: tbLook 7s ease-in-out infinite, tbBlink 7s linear infinite;
+}
+
+/* --- brows lift out of sync: the "confused" tell -------------------- */
+.tb-brow-l {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: tbBrowL 7s ease-in-out infinite;
+}
+
+.tb-brow-r {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+    animation: tbBrowR 7s ease-in-out infinite;
+}
+
+/* --- antenna bulb pulses ------------------------------------------- */
+.tb-ball {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    animation: tbBall 2.6s ease-in-out infinite;
+}
+
+.tb-q1 {
+    animation: tbQ 7s ease-in-out infinite
+}
+
+.tb-q2 {
+    animation: tbQ 7s ease-in-out infinite;
+    animation-delay: .45s
+}
+
+@keyframes tbGlow {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 8px rgba(47, 176, 196, .26))
+    }
+
+    50% {
+        filter: drop-shadow(0 0 18px rgba(47, 176, 196, .55))
+    }
+}
+
+@keyframes tbTilt {
+
+    0%,
+    18% {
+        transform: rotate(0deg)
+    }
+
+    30%,
+    44% {
+        transform: rotate(-5deg)
+    }
+
+    56%,
+    70% {
+        transform: rotate(5deg)
+    }
+
+    82%,
+    100% {
+        transform: rotate(0deg)
+    }
+}
+
+@keyframes tbLook {
+
+    0%,
+    16% {
+        transform: translateX(0)
+    }
+
+    28%,
+    44% {
+        transform: translateX(-2.6px)
+    }
+
+    56%,
+    72% {
+        transform: translateX(2.6px)
+    }
+
+    84%,
+    100% {
+        transform: translateX(0)
+    }
+}
+
+@keyframes tbBlink {
+
+    0%,
+    46%,
+    100% {
+        opacity: 1
+    }
+
+    47.5%,
+    49% {
+        opacity: .06
+    }
+
+    50.5% {
+        opacity: 1
+    }
+}
+
+@keyframes tbBrowL {
+
+    0%,
+    22% {
+        transform: translateY(0) rotate(0deg)
+    }
+
+    34%,
+    46% {
+        transform: translateY(-2.4px) rotate(-9deg)
+    }
+
+    60%,
+    100% {
+        transform: translateY(0) rotate(0deg)
+    }
+}
+
+@keyframes tbBrowR {
+
+    0%,
+    46% {
+        transform: translateY(0) rotate(0deg)
+    }
+
+    58%,
+    72% {
+        transform: translateY(-2.4px) rotate(9deg)
+    }
+
+    86%,
+    100% {
+        transform: translateY(0) rotate(0deg)
+    }
+}
+
+@keyframes tbBall {
+
+    0%,
+    100% {
+        transform: scale(1);
+        fill: #2fb0c4
+    }
+
+    50% {
+        transform: scale(1.13);
+        fill: #7ee8f5
+    }
+}
+
+@keyframes tbQ {
+
+    0%,
+    20% {
+        opacity: 0;
+        transform: translateY(3px)
+    }
+
+    32%,
+    52% {
+        opacity: .95;
+        transform: translateY(-2px)
+    }
+
+    68%,
+    100% {
+        opacity: 0;
+        transform: translateY(-6px)
+    }
+}
+
+.tb-q1,
+.tb-q2 {
+    transform-box: fill-box;
+    transform-origin: 50% 50%
+}
+
+@media (max-width:560px) {
+    .hero-title {
+        gap: .14em
+    }
+
+    .tom-bot {
+        width: .92em;
+        height: .92em
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .tom-bot,
+    .tb-tilt,
+    .tb-eyes,
+    .tb-brow-l,
+    .tb-brow-r,
+    .tb-ball,
+    .tb-q1,
+    .tb-q2 {
+        animation: none !important
+    }
+
+    .tb-q {
+        opacity: .8
+    }
+}
+
+
+/* =====================================================================
+   ===== 07 · RESULTS TABLE ============================================
+   Condition means with signed deltas against the re-run baseline.
+   ===================================================================== */
+
+.res-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: .82rem;
+}
+
+.res-table th {
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    padding: .7rem .5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-hi);
+    white-space: nowrap;
+}
+
+.res-table th small {
+    display: block;
+    font-weight: 400;
+    letter-spacing: .02em;
+    text-transform: none;
+    opacity: .7;
+}
+
+.res-table td {
+    padding: .62rem .5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text);
+}
+
+.res-table tr:hover td {
+    background: var(--bg-hover)
+}
+
+.res-lbl {
+    text-align: left !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.res-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .55rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .12rem .45rem;
+    border-radius: 99px;
+    margin-left: .4rem;
+}
+
+.t-pub {
+    background: rgba(167, 139, 250, .14);
+    color: #c4b5fd;
+    border: 1px solid rgba(167, 139, 250, .3)
+}
+
+.t-base {
+    background: rgba(96, 165, 250, .14);
+    color: #93c5fd;
+    border: 1px solid rgba(96, 165, 250, .3)
+}
+
+.r-pub td {
+    background: rgba(167, 139, 250, .05)
+}
+
+.r-base td {
+    background: rgba(96, 165, 250, .06);
+    border-bottom: 1px solid var(--border-hi)
+}
+
+.r-avg td {
+    background: rgba(34, 197, 94, .07);
+    border-top: 2px solid var(--border-hi);
+    font-weight: 600;
+}
+
+.res-table i {
+    font-style: normal;
+    font-size: .62rem;
+    display: block;
+    margin-top: .1rem
+}
+
+.dp {
+    color: #4ade80
+}
+
+.dn {
+    color: #f87171
+}
+
+.d0 {
+    color: var(--text-3)
+}
+
+.res-key {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: .9rem;
+    font-size: .7rem;
+    color: var(--text-2);
+}
+
+.res-key i {
+    font-style: normal;
+    font-family: 'JetBrains Mono', monospace;
+    margin-right: .3rem
+}
+
+.res-key b {
+    color: var(--green)
+}
+
+/* ---- findings cards ---- */
+.find-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+    gap: 1rem;
+    margin-top: 1.6rem;
+}
+
+.find {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--indigo);
+    border-radius: 8px;
+    padding: 1rem 1.1rem;
+    transition: transform .2s ease, border-color .2s ease;
+}
+
+.find:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-hi)
+}
+
+.find.f-key {
+    border-left-color: var(--green);
+    background: rgba(34, 197, 94, .04)
+}
+
+.find.f-warn {
+    border-left-color: var(--red);
+    background: rgba(239, 68, 68, .04)
+}
+
+.find.f-good {
+    border-left-color: var(--teal);
+    background: rgba(20, 184, 166, .04)
+}
+
+.find-h {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: .88rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: .45rem;
+}
+
+.find-b {
+    font-size: .78rem;
+    line-height: 1.68;
+    color: var(--text-2)
+}
+
+.find-b code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    color: var(--amber)
+}

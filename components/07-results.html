@@ -1,0 +1,120 @@
+<section id="results">
+    <div class="wrap">
+        <div class="sh">
+            <div class="sh-label">First Results</div>
+            <div class="sh-title">GPT-4o &middot; CP</div>
+            <div class="sh-sub">All six conditions annotated, 120 samples. Every cell below is a mean over the same
+                twenty scenarios, so the comparison is paired throughout. Remaining model &times; variant cells are
+                pending.</div>
+        </div>
+
+        <div class="mx-scroll">
+            <table class="res-table">
+                <thead>
+                    <tr>
+                        <th style="text-align:left">Condition</th>
+                        <th>Instruction<br><small>accuracy</small></th>
+                        <th>Intent<br><small>accuracy</small></th>
+                        <th>Plan<br><small>feasibility</small></th>
+                        <th>Plan<br><small>optimality</small></th>
+                        <th>Action<br><small>feasibility</small></th>
+                        <th>Action<br><small>optimality</small></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="r-pub">
+                        <td class="res-lbl">Original <span class="res-tag t-pub">published</span></td>
+                        <td>0.600</td><td>0.500</td><td>0.609</td><td>0.250</td><td>0.787</td><td>0.550</td>
+                    </tr>
+                    <tr class="r-base">
+                        <td class="res-lbl">Re-run <span class="res-tag t-base">baseline</span></td>
+                        <td>0.600</td><td>0.500</td><td>0.613</td><td>0.200</td><td>0.787</td><td>0.550</td>
+                    </tr>
+                    <tr>
+                        <td class="res-lbl">P1 &middot; Padding</td>
+                        <td>0.600 <i class="d0">&plusmn;0</i></td>
+                        <td>0.500 <i class="d0">&plusmn;0</i></td>
+                        <td>0.591 <i class="dn">&minus;.022</i></td>
+                        <td>0.150 <i class="dn">&minus;.050</i></td>
+                        <td>0.771 <i class="dn">&minus;.017</i></td>
+                        <td>0.508 <i class="dn">&minus;.042</i></td>
+                    </tr>
+                    <tr>
+                        <td class="res-lbl">P2 &middot; Colour</td>
+                        <td>0.550 <i class="dn">&minus;.050</i></td>
+                        <td>0.450 <i class="dn">&minus;.050</i></td>
+                        <td>0.604 <i class="dn">&minus;.009</i></td>
+                        <td>0.200 <i class="d0">&plusmn;0</i></td>
+                        <td>0.804 <i class="dp">+.017</i></td>
+                        <td>0.525 <i class="dn">&minus;.025</i></td>
+                    </tr>
+                    <tr>
+                        <td class="res-lbl">P3 &middot; Distractor</td>
+                        <td>0.600 <i class="d0">&plusmn;0</i></td>
+                        <td>0.500 <i class="d0">&plusmn;0</i></td>
+                        <td>0.587 <i class="dn">&minus;.026</i></td>
+                        <td>0.200 <i class="d0">&plusmn;0</i></td>
+                        <td>0.733 <i class="dn">&minus;.054</i></td>
+                        <td>0.542 <i class="dn">&minus;.008</i></td>
+                    </tr>
+                    <tr>
+                        <td class="res-lbl">P4 &middot; Relocation</td>
+                        <td>0.600 <i class="d0">&plusmn;0</i></td>
+                        <td>0.500 <i class="d0">&plusmn;0</i></td>
+                        <td>0.609 <i class="dn">&minus;.004</i></td>
+                        <td>0.200 <i class="d0">&plusmn;0</i></td>
+                        <td>0.787 <i class="d0">&plusmn;0</i></td>
+                        <td>0.625 <i class="dp">+.075</i></td>
+                    </tr>
+                    <tr class="r-avg">
+                        <td class="res-lbl">P1&ndash;P4 average</td>
+                        <td>0.588</td><td>0.487</td><td>0.598</td><td>0.188</td><td>0.774</td><td>0.550</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="res-key">
+            <span><i class="dp">+</i> above re-run</span>
+            <span><i class="dn">&minus;</i> below re-run</span>
+            <span><i class="d0">&plusmn;0</i> unchanged</span>
+            <span style="margin-left:auto">paired tests vs re-run &mdash; <b>0 of 24 significant</b> at
+                <em>p</em>&nbsp;&lt;&nbsp;.05</span>
+        </div>
+
+        <div class="find-grid">
+            <div class="find f-key">
+                <div class="find-h">The headline</div>
+                <div class="find-b">Averaged over the four perturbations, every metric lands within <b>0.015</b> of the
+                    re-run baseline &mdash; and Action Optimality lands on it <b>exactly</b>. No comparison reaches
+                    significance. Aggregate performance does not depend on surface form.</div>
+            </div>
+            <div class="find">
+                <div class="find-h">But the items move</div>
+                <div class="find-b">12&ndash;14 of 20 scenarios change on at least one metric in every condition. The
+                    stability is a <em>cancellation</em>, not an absence of effect &mdash; which is why the per-condition
+                    diagnosis below matters.</div>
+            </div>
+            <div class="find f-warn">
+                <div class="find-h">P3 caught it red-handed</div>
+                <div class="find-b">In <code>10.txt</code> and <code>10b.txt</code> the agent collected the key at
+                    <b>(5,5)</b> &mdash; the exact cell of an <em>unreachable</em> distractor. Action Feasibility 0.0 in
+                    both. It matched on colour without checking the region.</div>
+            </div>
+            <div class="find f-good">
+                <div class="find-b find-h">P4 confirms the grid is read</div>
+                <div class="find-b">Action Optimality rises <b>+0.075</b>. Split by the difficulty audit: scenarios
+                    marked <em>easier</em> gain <b>+0.400</b>, those marked <em>harder</em> lose <b>0.038</b>
+                    (<em>p</em>&nbsp;=&nbsp;.064). Performance tracks the geometry, so the maze is a real constraint.
+                </div>
+            </div>
+        </div>
+
+        <p class="note-line">
+            <b>Reading this together.</b> P1&ndash;P3 were designed so that a memorising model would break and a
+            reasoning model would not; none of them moves the aggregate. P4 was designed to move it, and it does
+            &mdash; in the direction the difficulty audit predicts. The pair rules out both failure modes at once:
+            Tomcat is not reciting surface patterns, and it is not ignoring the grid.
+        </p>
+    </div>
+</section>
