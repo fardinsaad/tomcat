@@ -4048,3 +4048,17 @@ nav {
     font-size: .72rem;
     color: var(--amber)
 }
+
+.r-var td {
+    background: rgba(99, 102, 241, .16);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #dbe2ff;
+    text-align: center !important;
+    padding: .7rem .6rem !important;
+    border-top: 1px solid var(--border-hi);
+    border-bottom: 1px solid var(--border-hi);
+}

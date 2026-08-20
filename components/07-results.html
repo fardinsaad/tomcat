@@ -2,8 +2,8 @@
     <div class="wrap">
         <div class="sh">
             <div class="sh-label">First Results</div>
-            <div class="sh-title">GPT-4o &middot; CP</div>
-            <div class="sh-sub">All six conditions annotated, 120 samples. Every cell below is a mean over the same
+            <div class="sh-title">GPT-4o: CP and Fs-CoT</div>
+            <div class="sh-sub">All six conditions annotated for both variants, 240 samples. Every cell below is a mean over the same
                 twenty scenarios, so the comparison is paired throughout. Remaining model &times; variant cells are
                 pending.</div>
         </div>
@@ -22,6 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr class="r-var"><td colspan="7">GPT-4o CP</td></tr>
                     <tr class="r-pub">
                         <td class="res-lbl">Original <span class="res-tag t-pub">published</span></td>
                         <td>0.600</td><td>0.500</td><td>0.609</td><td>0.250</td><td>0.787</td><td>0.550</td>
@@ -70,6 +71,44 @@
                         <td class="res-lbl">P1&ndash;P4 average</td>
                         <td>0.588</td><td>0.487</td><td>0.598</td><td>0.188</td><td>0.774</td><td>0.550</td>
                     </tr>
+
+                    <tr class="r-var"><td colspan="7">GPT-4o Fs-CoT</td></tr>
+                    <tr class="r-pub">
+                        <td class="res-lbl">Original <span class="res-tag t-pub">published</span></td>
+                        <td>0.750</td><td>0.850</td><td>0.918</td><td>0.750</td><td>0.975</td><td>0.925</td>
+                    </tr>
+                    <tr class="r-base">
+                        <td class="res-lbl">Re-run <span class="res-tag t-base">baseline</span></td>
+                        <td>0.750</td><td>0.850</td><td>0.930</td><td>0.750</td><td>0.975</td><td>0.875</td>
+                    </tr>
+                    <tr>
+                        <td class="res-lbl">P1 &middot; Padding</td>
+                        <td>0.700 <i class="dn">&minus;.050</i></td><td>0.800 <i class="dn">&minus;.050</i></td>
+                        <td>0.878 <i class="dn">&minus;.053</i></td><td>0.700 <i class="dn">&minus;.050</i></td>
+                        <td>0.975 <i class="d0">&plusmn;0</i></td><td>0.812 <i class="dn">&minus;.063</i></td>
+                    </tr>
+                    <tr>
+                        <td class="res-lbl">P2 &middot; Colour</td>
+                        <td>0.650 <i class="dn">&minus;.100</i></td><td>0.850 <i class="d0">&plusmn;0</i></td>
+                        <td>0.897 <i class="dn">&minus;.033</i></td><td>0.650 <i class="dn">&minus;.100</i></td>
+                        <td>0.925 <i class="dn">&minus;.050</i></td><td>0.829 <i class="dn">&minus;.046</i></td>
+                    </tr>
+                    <tr>
+                        <td class="res-lbl">P3 &middot; Distractor</td>
+                        <td>0.800 <i class="dp">+.050</i></td><td>0.850 <i class="d0">&plusmn;0</i></td>
+                        <td>0.935 <i class="dp">+.005</i></td><td>0.750 <i class="d0">&plusmn;0</i></td>
+                        <td>0.967 <i class="dn">&minus;.008</i></td><td>0.867 <i class="dn">&minus;.008</i></td>
+                    </tr>
+                    <tr>
+                        <td class="res-lbl">P4 &middot; Relocation</td>
+                        <td>0.700 <i class="dn">&minus;.050</i></td><td>0.850 <i class="d0">&plusmn;0</i></td>
+                        <td>0.902 <i class="dn">&minus;.028</i></td><td>0.700 <i class="dn">&minus;.050</i></td>
+                        <td>0.950 <i class="dn">&minus;.025</i></td><td>0.862 <i class="dn">&minus;.013</i></td>
+                    </tr>
+                    <tr class="r-avg">
+                        <td class="res-lbl">P1&ndash;P4 average</td>
+                        <td>0.712</td><td>0.837</td><td>0.903</td><td>0.700</td><td>0.954</td><td>0.843</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -78,8 +117,7 @@
             <span><i class="dp">+</i> above re-run</span>
             <span><i class="dn">&minus;</i> below re-run</span>
             <span><i class="d0">&plusmn;0</i> unchanged</span>
-            <span style="margin-left:auto">paired tests vs re-run &mdash; <b>0 of 24 significant</b> at
-                <em>p</em>&nbsp;&lt;&nbsp;.05</span>
+            <span style="margin-left:auto">paired tests vs re-run &mdash; <b>0 of 12 omnibus tests significant</b> across both variants</span>
         </div>
 
         <div class="find-grid">
@@ -95,18 +133,24 @@
                     stability is a <em>cancellation</em>, not an absence of effect &mdash; which is why the per-condition
                     diagnosis below matters.</div>
             </div>
+            <div class="find f-key">
+                <div class="find-h">The Fs-CoT advantage survives</div>
+                <div class="find-b">Fs-CoT beats CP on plan optimality by <b>+.55 / +.55 / +.45 / +.55 / +.50</b>
+                    across the re-run and P1&ndash;P4. The paper's central claim does not depend on the grid's surface
+                    form &mdash; which turns a null result into a positive one.</div>
+            </div>
             <div class="find f-warn">
-                <div class="find-h">P3 caught it red-handed</div>
-                <div class="find-b">In <code>10.txt</code> and <code>10b.txt</code> the agent collected the key at
-                    <b>(5,5)</b> &mdash; the exact cell of an <em>unreachable</em> distractor. Action Feasibility 0.0 in
-                    both. It matched on colour without checking the region.</div>
+                <div class="find-h">One failure, both variants</div>
+                <div class="find-b">CP collected the key at <b>(5,5)</b> in <code>10.txt</code> and
+                    <code>10b.txt</code>; Fs-CoT collected <b>(1,2)</b> in <code>19.txt</code>. All three are
+                    unreachable distractor cells. Same mistake, different prompts &mdash; so it belongs to the model,
+                    not the prompting strategy.</div>
             </div>
             <div class="find f-good">
-                <div class="find-b find-h">P4 confirms the grid is read</div>
-                <div class="find-b">Action Optimality rises <b>+0.075</b>. Split by the difficulty audit: scenarios
-                    marked <em>easier</em> gain <b>+0.400</b>, those marked <em>harder</em> lose <b>0.038</b>
-                    (<em>p</em>&nbsp;=&nbsp;.064). Performance tracks the geometry, so the maze is a real constraint.
-                </div>
+                <div class="find-h">Exemplars buy stability too</div>
+                <div class="find-b">Under perturbation, Fs-CoT changes <b>5&ndash;10</b> of 20 scenarios per condition
+                    against CP's <b>12&ndash;14</b>. The worked examples do not only raise the score; they reduce how
+                    far individual decisions drift.</div>
             </div>
         </div>
 
