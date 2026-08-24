@@ -302,6 +302,19 @@ function initMatrixTotals() {
     }
 }
 
+// ─── MODEL x VARIANT PICKER (component 07) ───────────────────────────────────
+// Each model-variant pair is a separate <tbody>; the select toggles which one
+// is visible. Rendering all six and hiding five keeps the markup static, so
+// there is no re-render cost and the table never reflows on switch.
+function initResultPicker() {
+    const sel = document.getElementById('mvsel');
+    if (!sel) return;
+    const bodies = document.querySelectorAll('.res-body');
+    const show = key => bodies.forEach(b => { b.hidden = b.dataset.mv !== key; });
+    show(sel.value);
+    sel.addEventListener('change', () => show(sel.value));
+}
+
 // ─── BOOT ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
     initThemes();
@@ -314,4 +327,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     initPromptSwitch();
     initMatrixRail();
     initMatrixTotals();
+    initResultPicker();
 });

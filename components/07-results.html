@@ -2,10 +2,14 @@
     <div class="wrap">
         <div class="sh">
             <div class="sh-label">First Results</div>
-            <div class="sh-title">GPT-4o: CP and Fs-CoT</div>
-            <div class="sh-sub">All six conditions annotated for both variants, 240 samples. Every cell below is a mean over the same
-                twenty scenarios, so the comparison is paired throughout. Remaining model &times; variant cells are
-                pending.</div>
+            <div class="sh-title">Perturbation Results</div>
+            <div class="sh-sub">All six conditions annotated for every model and variant, 720 samples. Every cell below is a mean over the same
+                twenty scenarios, so the comparison is paired throughout. Select a model and variant to view its results.</div>
+        </div>
+
+        <div class="mv-pick">
+            <label for="mvsel">Model &amp; variant</label>
+            <select id="mvsel"><option value="GPT-4o|CP">GPT-4o · CP</option><option value="GPT-4o|Fs-CoT">GPT-4o · Fs-CoT</option><option value="DeepSeek-R1|CP">DeepSeek-R1 · CP</option><option value="DeepSeek-R1|Fs-CoT">DeepSeek-R1 · Fs-CoT</option><option value="Gemma-3-27B|CP">Gemma-3-27B · CP</option><option value="Gemma-3-27B|Fs-CoT">Gemma-3-27B · Fs-CoT</option></select>
         </div>
 
         <div class="mx-scroll">
@@ -21,103 +25,68 @@
                         <th>Action<br><small>optimality</small></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="r-var"><td colspan="7">GPT-4o CP</td></tr>
-                    <tr class="r-pub">
-                        <td class="res-lbl">Original <span class="res-tag t-pub">published</span></td>
-                        <td>0.600</td><td>0.500</td><td>0.609</td><td>0.250</td><td>0.787</td><td>0.550</td>
-                    </tr>
-                    <tr class="r-base">
-                        <td class="res-lbl">Re-run <span class="res-tag t-base">baseline</span></td>
-                        <td>0.600</td><td>0.500</td><td>0.613</td><td>0.200</td><td>0.787</td><td>0.550</td>
-                    </tr>
-                    <tr>
-                        <td class="res-lbl">P1 &middot; Padding</td>
-                        <td>0.600 <i class="d0">&plusmn;0</i></td>
-                        <td>0.500 <i class="d0">&plusmn;0</i></td>
-                        <td>0.591 <i class="dn">&minus;.022</i></td>
-                        <td>0.150 <i class="dn">&minus;.050</i></td>
-                        <td>0.771 <i class="dn">&minus;.017</i></td>
-                        <td>0.508 <i class="dn">&minus;.042</i></td>
-                    </tr>
-                    <tr>
-                        <td class="res-lbl">P2 &middot; Colour</td>
-                        <td>0.550 <i class="dn">&minus;.050</i></td>
-                        <td>0.450 <i class="dn">&minus;.050</i></td>
-                        <td>0.604 <i class="dn">&minus;.009</i></td>
-                        <td>0.200 <i class="d0">&plusmn;0</i></td>
-                        <td>0.804 <i class="dp">+.017</i></td>
-                        <td>0.525 <i class="dn">&minus;.025</i></td>
-                    </tr>
-                    <tr>
-                        <td class="res-lbl">P3 &middot; Distractor</td>
-                        <td>0.600 <i class="d0">&plusmn;0</i></td>
-                        <td>0.500 <i class="d0">&plusmn;0</i></td>
-                        <td>0.587 <i class="dn">&minus;.026</i></td>
-                        <td>0.200 <i class="d0">&plusmn;0</i></td>
-                        <td>0.733 <i class="dn">&minus;.054</i></td>
-                        <td>0.542 <i class="dn">&minus;.008</i></td>
-                    </tr>
-                    <tr>
-                        <td class="res-lbl">P4 &middot; Relocation</td>
-                        <td>0.600 <i class="d0">&plusmn;0</i></td>
-                        <td>0.500 <i class="d0">&plusmn;0</i></td>
-                        <td>0.609 <i class="dn">&minus;.004</i></td>
-                        <td>0.200 <i class="d0">&plusmn;0</i></td>
-                        <td>0.787 <i class="d0">&plusmn;0</i></td>
-                        <td>0.625 <i class="dp">+.075</i></td>
-                    </tr>
-                    <tr class="r-avg">
-                        <td class="res-lbl">P1&ndash;P4 average</td>
-                        <td>0.588</td><td>0.487</td><td>0.598</td><td>0.188</td><td>0.774</td><td>0.550</td>
-                    </tr>
-
-                    <tr class="r-var"><td colspan="7">GPT-4o Fs-CoT</td></tr>
-                    <tr class="r-pub">
-                        <td class="res-lbl">Original <span class="res-tag t-pub">published</span></td>
-                        <td>0.750</td><td>0.850</td><td>0.918</td><td>0.750</td><td>0.975</td><td>0.925</td>
-                    </tr>
-                    <tr class="r-base">
-                        <td class="res-lbl">Re-run <span class="res-tag t-base">baseline</span></td>
-                        <td>0.750</td><td>0.850</td><td>0.930</td><td>0.750</td><td>0.975</td><td>0.875</td>
-                    </tr>
-                    <tr>
-                        <td class="res-lbl">P1 &middot; Padding</td>
-                        <td>0.700 <i class="dn">&minus;.050</i></td><td>0.800 <i class="dn">&minus;.050</i></td>
-                        <td>0.878 <i class="dn">&minus;.053</i></td><td>0.700 <i class="dn">&minus;.050</i></td>
-                        <td>0.975 <i class="d0">&plusmn;0</i></td><td>0.812 <i class="dn">&minus;.063</i></td>
-                    </tr>
-                    <tr>
-                        <td class="res-lbl">P2 &middot; Colour</td>
-                        <td>0.650 <i class="dn">&minus;.100</i></td><td>0.850 <i class="d0">&plusmn;0</i></td>
-                        <td>0.897 <i class="dn">&minus;.033</i></td><td>0.650 <i class="dn">&minus;.100</i></td>
-                        <td>0.925 <i class="dn">&minus;.050</i></td><td>0.829 <i class="dn">&minus;.046</i></td>
-                    </tr>
-                    <tr>
-                        <td class="res-lbl">P3 &middot; Distractor</td>
-                        <td>0.800 <i class="dp">+.050</i></td><td>0.850 <i class="d0">&plusmn;0</i></td>
-                        <td>0.935 <i class="dp">+.005</i></td><td>0.750 <i class="d0">&plusmn;0</i></td>
-                        <td>0.967 <i class="dn">&minus;.008</i></td><td>0.867 <i class="dn">&minus;.008</i></td>
-                    </tr>
-                    <tr>
-                        <td class="res-lbl">P4 &middot; Relocation</td>
-                        <td>0.700 <i class="dn">&minus;.050</i></td><td>0.850 <i class="d0">&plusmn;0</i></td>
-                        <td>0.902 <i class="dn">&minus;.028</i></td><td>0.700 <i class="dn">&minus;.050</i></td>
-                        <td>0.950 <i class="dn">&minus;.025</i></td><td>0.862 <i class="dn">&minus;.013</i></td>
-                    </tr>
-                    <tr class="r-avg">
-                        <td class="res-lbl">P1&ndash;P4 average</td>
-                        <td>0.712</td><td>0.837</td><td>0.903</td><td>0.700</td><td>0.954</td><td>0.843</td>
-                    </tr>
+                                <tbody class="res-body" data-mv="GPT-4o|CP" hidden>
+                    <tr class="r-pub"><td class="res-lbl">Original <span class="res-tag t-pub">published</span></td><td>0.600</td><td>0.500</td><td>0.609</td><td>0.250</td><td>0.787</td><td>0.550</td></tr>
+                    <tr class="r-base"><td class="res-lbl">Re-run <span class="res-tag t-base">baseline</span></td><td>0.600 <i class="d0">&plusmn;0</i></td><td>0.500 <i class="d0">&plusmn;0</i></td><td>0.613 <i class="dp">&#9650;+.004</i></td><td>0.200 <i class="dn">&#9660;&minus;.050</i></td><td>0.787 <i class="d0">&plusmn;0</i></td><td>0.550 <i class="d0">&plusmn;0</i></td></tr>
+                    <tr><td class="res-lbl">P1 &middot; Padding </td><td>0.600 <i class="d0">&plusmn;0</i></td><td>0.500 <i class="d0">&plusmn;0</i></td><td>0.591 <i class="dn">&#9660;&minus;.022</i></td><td>0.150 <i class="dn">&#9660;&minus;.050</i></td><td>0.771 <i class="dn">&#9660;&minus;.017</i></td><td>0.508 <i class="dn">&#9660;&minus;.042</i></td></tr>
+                    <tr><td class="res-lbl">P2 &middot; Colour </td><td>0.550 <i class="dn">&#9660;&minus;.050</i></td><td>0.450 <i class="dn">&#9660;&minus;.050</i></td><td>0.604 <i class="dn">&#9660;&minus;.009</i></td><td>0.200 <i class="d0">&plusmn;0</i></td><td>0.804 <i class="dp">&#9650;+.017</i></td><td>0.525 <i class="dn">&#9660;&minus;.025</i></td></tr>
+                    <tr><td class="res-lbl">P3 &middot; Distractor </td><td>0.600 <i class="d0">&plusmn;0</i></td><td>0.500 <i class="d0">&plusmn;0</i></td><td>0.587 <i class="dn">&#9660;&minus;.026</i></td><td>0.200 <i class="d0">&plusmn;0</i></td><td>0.733 <i class="dn">&#9660;&minus;.054</i></td><td>0.542 <i class="dn">&#9660;&minus;.008</i></td></tr>
+                    <tr><td class="res-lbl">P4 &middot; Relocation </td><td>0.600 <i class="d0">&plusmn;0</i></td><td>0.500 <i class="d0">&plusmn;0</i></td><td>0.609 <i class="dn">&#9660;&minus;.004</i></td><td>0.200 <i class="d0">&plusmn;0</i></td><td>0.787 <i class="d0">&plusmn;0</i></td><td>0.625 <i class="dp">&#9650;+.075</i></td></tr>
+                    <tr class="r-avg"><td class="res-lbl">P1&ndash;P4 average</td><td>0.588</td><td>0.487</td><td>0.598</td><td>0.188</td><td>0.774</td><td>0.550</td></tr>
+                </tbody>
+                <tbody class="res-body" data-mv="GPT-4o|Fs-CoT" hidden>
+                    <tr class="r-pub"><td class="res-lbl">Original <span class="res-tag t-pub">published</span></td><td>0.750</td><td>0.850</td><td>0.918</td><td>0.750</td><td>0.975</td><td>0.925</td></tr>
+                    <tr class="r-base"><td class="res-lbl">Re-run <span class="res-tag t-base">baseline</span></td><td>0.750 <i class="d0">&plusmn;0</i></td><td>0.850 <i class="d0">&plusmn;0</i></td><td>0.930 <i class="dp">&#9650;+.013</i></td><td>0.750 <i class="d0">&plusmn;0</i></td><td>0.975 <i class="d0">&plusmn;0</i></td><td>0.875 <i class="dn">&#9660;&minus;.050</i></td></tr>
+                    <tr><td class="res-lbl">P1 &middot; Padding </td><td>0.700 <i class="dn">&#9660;&minus;.050</i></td><td>0.800 <i class="dn">&#9660;&minus;.050</i></td><td>0.878 <i class="dn">&#9660;&minus;.052</i></td><td>0.700 <i class="dn">&#9660;&minus;.050</i></td><td>0.975 <i class="d0">&plusmn;0</i></td><td>0.812 <i class="dn">&#9660;&minus;.062</i></td></tr>
+                    <tr><td class="res-lbl">P2 &middot; Colour </td><td>0.650 <i class="dn">&#9660;&minus;.100</i></td><td>0.850 <i class="d0">&plusmn;0</i></td><td>0.897 <i class="dn">&#9660;&minus;.033</i></td><td>0.650 <i class="dn">&#9660;&minus;.100</i></td><td>0.925 <i class="dn">&#9660;&minus;.050</i></td><td>0.829 <i class="dn">&#9660;&minus;.046</i></td></tr>
+                    <tr><td class="res-lbl">P3 &middot; Distractor </td><td>0.800 <i class="dp">&#9650;+.050</i></td><td>0.850 <i class="d0">&plusmn;0</i></td><td>0.935 <i class="dp">&#9650;+.005</i></td><td>0.750 <i class="d0">&plusmn;0</i></td><td>0.967 <i class="dn">&#9660;&minus;.008</i></td><td>0.867 <i class="dn">&#9660;&minus;.008</i></td></tr>
+                    <tr><td class="res-lbl">P4 &middot; Relocation </td><td>0.700 <i class="dn">&#9660;&minus;.050</i></td><td>0.850 <i class="d0">&plusmn;0</i></td><td>0.902 <i class="dn">&#9660;&minus;.028</i></td><td>0.700 <i class="dn">&#9660;&minus;.050</i></td><td>0.950 <i class="dn">&#9660;&minus;.025</i></td><td>0.863 <i class="dn">&#9660;&minus;.012</i></td></tr>
+                    <tr class="r-avg"><td class="res-lbl">P1&ndash;P4 average</td><td>0.713</td><td>0.838</td><td>0.903</td><td>0.700</td><td>0.954</td><td>0.843</td></tr>
+                </tbody>
+                <tbody class="res-body" data-mv="DeepSeek-R1|CP" hidden>
+                    <tr class="r-pub"><td class="res-lbl">Original <span class="res-tag t-pub">published</span></td><td>0.550</td><td>0.600</td><td>0.699</td><td>0.550</td><td>0.860</td><td>0.735</td></tr>
+                    <tr class="r-base"><td class="res-lbl">Re-run <span class="res-tag t-base">baseline</span></td><td>0.650 <i class="dp">&#9650;+.100</i></td><td>0.750 <i class="dp">&#9650;+.150</i></td><td>0.793 <i class="dp">&#9650;+.094</i></td><td>0.600 <i class="dp">&#9650;+.050</i></td><td>0.875 <i class="dp">&#9650;+.015</i></td><td>0.725 <i class="dn">&#9660;&minus;.010</i></td></tr>
+                    <tr><td class="res-lbl">P1 &middot; Padding </td><td>0.550 <i class="dn">&#9660;&minus;.100</i></td><td>0.750 <i class="d0">&plusmn;0</i></td><td>0.780 <i class="dn">&#9660;&minus;.013</i></td><td>0.600 <i class="d0">&plusmn;0</i></td><td>0.867 <i class="dn">&#9660;&minus;.008</i></td><td>0.713 <i class="dn">&#9660;&minus;.012</i></td></tr>
+                    <tr><td class="res-lbl">P2 &middot; Colour </td><td>0.700 <i class="dp">&#9650;+.050</i></td><td>0.750 <i class="d0">&plusmn;0</i></td><td>0.798 <i class="dp">&#9650;+.005</i></td><td>0.600 <i class="d0">&plusmn;0</i></td><td>0.900 <i class="dp">&#9650;+.025</i></td><td>0.746 <i class="dp">&#9650;+.021</i></td></tr>
+                    <tr><td class="res-lbl">P3 &middot; Distractor </td><td>0.600 <i class="dn">&#9660;&minus;.050</i></td><td>0.750 <i class="d0">&plusmn;0</i></td><td>0.781 <i class="dn">&#9660;&minus;.013</i></td><td>0.650 <i class="dp">&#9650;+.050</i></td><td>0.850 <i class="dn">&#9660;&minus;.025</i></td><td>0.808 <i class="dp">&#9650;+.083</i></td></tr>
+                    <tr><td class="res-lbl">P4 &middot; Relocation </td><td>0.600 <i class="dn">&#9660;&minus;.050</i></td><td>0.700 <i class="dn">&#9660;&minus;.050</i></td><td>0.822 <i class="dp">&#9650;+.028</i></td><td>0.700 <i class="dp">&#9650;+.100</i></td><td>0.958 <i class="dp">&#9650;+.083</i></td><td>0.858 <i class="dp">&#9650;+.133</i></td></tr>
+                    <tr class="r-avg"><td class="res-lbl">P1&ndash;P4 average</td><td>0.613</td><td>0.738</td><td>0.795</td><td>0.637</td><td>0.894</td><td>0.781</td></tr>
+                </tbody>
+                <tbody class="res-body" data-mv="DeepSeek-R1|Fs-CoT" hidden>
+                    <tr class="r-pub"><td class="res-lbl">Original <span class="res-tag t-pub">published</span></td><td>0.750</td><td>0.800</td><td>0.804</td><td>0.700</td><td>0.885</td><td>0.735</td></tr>
+                    <tr class="r-base"><td class="res-lbl">Re-run <span class="res-tag t-base">baseline</span></td><td>0.800 <i class="dp">&#9650;+.050</i></td><td>0.800 <i class="d0">&plusmn;0</i></td><td>0.869 <i class="dp">&#9650;+.065</i></td><td>0.800 <i class="dp">&#9650;+.100</i></td><td>0.943 <i class="dp">&#9650;+.058</i></td><td>0.877 <i class="dp">&#9650;+.142</i></td></tr>
+                    <tr><td class="res-lbl">P1 &middot; Padding </td><td>0.850 <i class="dp">&#9650;+.050</i></td><td>0.850 <i class="dp">&#9650;+.050</i></td><td>0.888 <i class="dp">&#9650;+.019</i></td><td>0.800 <i class="d0">&plusmn;0</i></td><td>0.905 <i class="dn">&#9660;&minus;.038</i></td><td>0.850 <i class="dn">&#9660;&minus;.027</i></td></tr>
+                    <tr><td class="res-lbl">P2 &middot; Colour </td><td>0.750 <i class="dn">&#9660;&minus;.050</i></td><td>0.750 <i class="dn">&#9660;&minus;.050</i></td><td>0.856 <i class="dn">&#9660;&minus;.014</i></td><td>0.700 <i class="dn">&#9660;&minus;.100</i></td><td>0.958 <i class="dp">&#9650;+.015</i></td><td>0.833 <i class="dn">&#9660;&minus;.043</i></td></tr>
+                    <tr><td class="res-lbl">P3 &middot; Distractor </td><td>0.900 <i class="dp">&#9650;+.100</i></td><td>0.850 <i class="dp">&#9650;+.050</i></td><td>0.889 <i class="dp">&#9650;+.020</i></td><td>0.750 <i class="dn">&#9660;&minus;.050</i></td><td>0.950 <i class="dp">&#9650;+.007</i></td><td>0.838 <i class="dn">&#9660;&minus;.039</i></td></tr>
+                    <tr><td class="res-lbl">P4 &middot; Relocation </td><td>0.850 <i class="dp">&#9650;+.050</i></td><td>0.900 <i class="dp">&#9650;+.100</i></td><td>0.908 <i class="dp">&#9650;+.039</i></td><td>0.800 <i class="d0">&plusmn;0</i></td><td>0.945 <i class="dp">&#9650;+.002</i></td><td>0.887 <i class="dp">&#9650;+.011</i></td></tr>
+                    <tr class="r-avg"><td class="res-lbl">P1&ndash;P4 average</td><td>0.838</td><td>0.838</td><td>0.885</td><td>0.762</td><td>0.940</td><td>0.852</td></tr>
+                </tbody>
+                <tbody class="res-body" data-mv="Gemma-3-27B|CP" hidden>
+                    <tr class="r-pub"><td class="res-lbl">Original <span class="res-tag t-pub">published</span></td><td>0.500</td><td>0.050</td><td>0.326</td><td>0.050</td><td>0.604</td><td>0.304</td></tr>
+                    <tr class="r-base"><td class="res-lbl">Re-run <span class="res-tag t-base">baseline</span></td><td>0.600 <i class="dp">&#9650;+.100</i></td><td>0.100 <i class="dp">&#9650;+.050</i></td><td>0.412 <i class="dp">&#9650;+.086</i></td><td>0.050 <i class="d0">&plusmn;0</i></td><td>0.675 <i class="dp">&#9650;+.071</i></td><td>0.467 <i class="dp">&#9650;+.162</i></td></tr>
+                    <tr><td class="res-lbl">P1 &middot; Padding </td><td>0.600 <i class="d0">&plusmn;0</i></td><td>0.100 <i class="d0">&plusmn;0</i></td><td>0.421 <i class="dp">&#9650;+.009</i></td><td>0.050 <i class="d0">&plusmn;0</i></td><td>0.650 <i class="dn">&#9660;&minus;.025</i></td><td>0.450 <i class="dn">&#9660;&minus;.017</i></td></tr>
+                    <tr><td class="res-lbl">P2 &middot; Colour </td><td>0.550 <i class="dn">&#9660;&minus;.050</i></td><td>0.100 <i class="d0">&plusmn;0</i></td><td>0.416 <i class="dp">&#9650;+.004</i></td><td>0.050 <i class="d0">&plusmn;0</i></td><td>0.704 <i class="dp">&#9650;+.029</i></td><td>0.454 <i class="dn">&#9660;&minus;.013</i></td></tr>
+                    <tr><td class="res-lbl">P3 &middot; Distractor </td><td>0.500 <i class="dn">&#9660;&minus;.100</i></td><td>0.100 <i class="d0">&plusmn;0</i></td><td>0.375 <i class="dn">&#9660;&minus;.037</i></td><td>0.050 <i class="d0">&plusmn;0</i></td><td>0.642 <i class="dn">&#9660;&minus;.033</i></td><td>0.367 <i class="dn">&#9660;&minus;.100</i></td></tr>
+                    <tr><td class="res-lbl">P4 &middot; Relocation </td><td>0.600 <i class="d0">&plusmn;0</i></td><td>0.150 <i class="dp">&#9650;+.050</i></td><td>0.430 <i class="dp">&#9650;+.018</i></td><td>0.050 <i class="d0">&plusmn;0</i></td><td>0.708 <i class="dp">&#9650;+.033</i></td><td>0.483 <i class="dp">&#9650;+.017</i></td></tr>
+                    <tr class="r-avg"><td class="res-lbl">P1&ndash;P4 average</td><td>0.562</td><td>0.113</td><td>0.411</td><td>0.050</td><td>0.676</td><td>0.439</td></tr>
+                </tbody>
+                <tbody class="res-body" data-mv="Gemma-3-27B|Fs-CoT" hidden>
+                    <tr class="r-pub"><td class="res-lbl">Original <span class="res-tag t-pub">published</span></td><td>0.650</td><td>0.300</td><td>0.498</td><td>0.300</td><td>0.750</td><td>0.512</td></tr>
+                    <tr class="r-base"><td class="res-lbl">Re-run <span class="res-tag t-base">baseline</span></td><td>0.750 <i class="dp">&#9650;+.100</i></td><td>0.400 <i class="dp">&#9650;+.100</i></td><td>0.655 <i class="dp">&#9650;+.157</i></td><td>0.350 <i class="dp">&#9650;+.050</i></td><td>0.775 <i class="dp">&#9650;+.025</i></td><td>0.637 <i class="dp">&#9650;+.125</i></td></tr>
+                    <tr><td class="res-lbl">P1 &middot; Padding </td><td>0.650 <i class="dn">&#9660;&minus;.100</i></td><td>0.400 <i class="d0">&plusmn;0</i></td><td>0.644 <i class="dn">&#9660;&minus;.011</i></td><td>0.300 <i class="dn">&#9660;&minus;.050</i></td><td>0.755 <i class="dn">&#9660;&minus;.020</i></td><td>0.542 <i class="dn">&#9660;&minus;.095</i></td></tr>
+                    <tr><td class="res-lbl">P2 &middot; Colour </td><td>0.650 <i class="dn">&#9660;&minus;.100</i></td><td>0.450 <i class="dp">&#9650;+.050</i></td><td>0.631 <i class="dn">&#9660;&minus;.024</i></td><td>0.350 <i class="d0">&plusmn;0</i></td><td>0.705 <i class="dn">&#9660;&minus;.070</i></td><td>0.573 <i class="dn">&#9660;&minus;.065</i></td></tr>
+                    <tr><td class="res-lbl">P3 &middot; Distractor </td><td>0.650 <i class="dn">&#9660;&minus;.100</i></td><td>0.400 <i class="d0">&plusmn;0</i></td><td>0.636 <i class="dn">&#9660;&minus;.019</i></td><td>0.350 <i class="d0">&plusmn;0</i></td><td>0.775 <i class="d0">&plusmn;0</i></td><td>0.637 <i class="d0">&plusmn;0</i></td></tr>
+                    <tr><td class="res-lbl">P4 &middot; Relocation </td><td>0.750 <i class="d0">&plusmn;0</i></td><td>0.450 <i class="dp">&#9650;+.050</i></td><td>0.658 <i class="dp">&#9650;+.003</i></td><td>0.400 <i class="dp">&#9650;+.050</i></td><td>0.792 <i class="dp">&#9650;+.017</i></td><td>0.679 <i class="dp">&#9650;+.042</i></td></tr>
+                    <tr class="r-avg"><td class="res-lbl">P1&ndash;P4 average</td><td>0.675</td><td>0.425</td><td>0.642</td><td>0.350</td><td>0.757</td><td>0.608</td></tr>
                 </tbody>
             </table>
         </div>
 
         <div class="res-key">
-            <span><i class="dp">+</i> above re-run</span>
-            <span><i class="dn">&minus;</i> below re-run</span>
+            <span><i class="dp">&#9650;</i> above baseline</span>
+            <span><i class="dn">&#9660;</i> below baseline</span>
             <span><i class="d0">&plusmn;0</i> unchanged</span>
-            <span style="margin-left:auto">paired tests vs re-run &mdash; <b>0 of 12 omnibus tests significant</b> across both variants</span>
+            <span style="margin-left:auto">paired tests vs re-run &mdash; <b>0 of 36 omnibus tests significant</b> across all six</span>
         </div>
 
         <div class="find-grid">

@@ -4062,3 +4062,52 @@ nav {
     border-top: 1px solid var(--border-hi);
     border-bottom: 1px solid var(--border-hi);
 }
+
+/* ---- 07 · model x variant picker ---- */
+.mv-pick {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    margin-bottom: 1rem;
+}
+
+.mv-pick label {
+    font-size: .62rem;
+    font-weight: 700;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--text-3);
+}
+
+.mv-pick select {
+    background: var(--bg-card);
+    color: var(--text);
+    border: 1px solid var(--border-hi);
+    border-radius: var(--r);
+    padding: .5rem .9rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: .9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color .18s ease, background .18s ease;
+}
+
+.mv-pick select:hover {
+    background: var(--bg-hover);
+    border-color: var(--indigo)
+}
+
+.mv-pick select:focus {
+    outline: none;
+    border-color: var(--indigo);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, .18)
+}
+
+.mv-pick select option {
+    background: #12182a;
+    color: var(--text)
+}
+
+.res-body[hidden] {
+    display: none
+}
