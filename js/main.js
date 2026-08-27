@@ -12,7 +12,23 @@ async function loadComponents() {
     await Promise.all([...slots].map(async slot => {
         const src = slot.dataset.component;
         try {
-            const html = await (await fetch(src)).text();
+            // Cache-bust and bypass the HTTP cache. A dev server that serves a
+            // component while it is still being written, or revalidates to a
+            // stale copy, yields HTML that is cut off partway through: the tail
+            // of the section simply never renders and nothing reports an error.
+            const res = await fetch(src + '?v=' + Date.now(), { cache: 'no-store' });
+            if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+            const html = await res.text();
+
+            // A component must end with its closing tag. If it does not, we were
+            // handed a truncated file -- say so loudly instead of rendering half
+            // a section and leaving the reader to guess.
+            if (!/<\/(section|div|footer)>\s*$/.test(html.trim())) {
+                console.error('TOMCAT: component looks truncated:', src,
+                              '(' + html.length + ' chars, ends with',
+                              JSON.stringify(html.trim().slice(-40)) + ')');
+            }
+
             const tmp  = document.createElement('div');
             tmp.innerHTML = html;
             // Convert to Array first — NodeList is live and shifts as nodes move
@@ -98,6 +114,11 @@ function initScrollReveal() {
 
     document.querySelectorAll(
         '.sh, .stage, .gf-node, .dec-card, .scale-card, .gl-phase, .col-item, ' +
+        // Component 11 is deliberately NOT in this list. .reveal sets opacity:0
+        // and relies on the observer to undo it; when that failed the whole
+        // Overcooked section disappeared. It is now plain visible, and keeps
+        // only the animations that cannot hide anything: the slider, the hover
+        // lifts, the bar fills and the family connectors.
         '.stim, .cond, .met, .dom, .pr-card')
         .forEach(el => {
             el.classList.add('reveal');
@@ -197,7 +218,11 @@ function initStimTabs() {
 function initPromptSwitch() {
     document.querySelectorAll('.pr-switch').forEach(sw => {
         const btns  = sw.querySelectorAll('.pr-btn');
-        const panes = document.querySelectorAll('.pr-pane');
+        // Scope to the panes that belong to THIS switch. Querying the whole
+        // document worked while there was one switch; with the Overcooked
+        // section there are two, and the second would hide the first's panes.
+        const scope = sw.parentElement.querySelector('.pr-panes') || document;
+        const panes = scope.querySelectorAll('.pr-pane');
         btns.forEach(btn => {
             btn.addEventListener('click', () => {
                 btns.forEach(b => b.classList.remove('on'));
@@ -315,6 +340,78 @@ function initResultPicker() {
     sel.addEventListener('change', () => show(sel.value));
 }
 
+// ─── OVERCOOKED PODIUM (component 11) ────────────────────────────────────────
+// Staggered reveal on first scroll into view. The bar widths animate from the
+// --w set inline, so a card that never scrolls into view never animates and
+// never sits half-drawn.
+function initOcRoster() {
+    const cards = document.querySelectorAll('.oc-model');
+    if (!cards.length) return;
+    // The cards are visible from the start. This only staggers a small lift as
+    // they scroll in, so nothing here can leave a card hidden.
+    const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((e, i) => {
+            if (!e.isIntersecting) return;
+            e.target.style.setProperty('--d', (i * 70) + 'ms');
+            e.target.classList.add('oc-in');
+            obs.unobserve(e.target);
+        });
+    }, { threshold: 0.15 });
+    cards.forEach(c => io.observe(c));
+}
+
+// ─── OVERCOOKED LAYOUT SLIDER (component 11) ─────────────────────────────────
+// Scroll-snap does the movement; this only wires the arrows and the dots and
+// keeps them in step with a scroll the user drives themselves.
+function initOcMaps() {
+    const rail = document.querySelector('.oc-rail');
+    const dots = document.querySelector('.oc-dots');
+    if (!rail || !dots) return;
+
+    const slides = [...rail.querySelectorAll('.oc-map')];
+    const step = () => slides.length > 1
+        ? slides[1].offsetLeft - slides[0].offsetLeft
+        : rail.clientWidth;
+
+    slides.forEach((s, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-label', 'Layout ' + (i + 1));
+        b.addEventListener('click', () => rail.scrollTo({ left: i * step() }));
+        dots.appendChild(b);
+    });
+
+    const arrows = document.querySelectorAll('.oc-arrow');
+    arrows.forEach(a => a.addEventListener('click', () => {
+        rail.scrollBy({ left: Number(a.dataset.dir) * step() });
+    }));
+
+    const sync = () => {
+        const i = Math.round(rail.scrollLeft / step());
+        [...dots.children].forEach((d, j) => d.classList.toggle('on', j === i));
+        arrows.forEach(a => {
+            const fwd = Number(a.dataset.dir) > 0;
+            a.disabled = fwd
+                ? rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 2
+                : rail.scrollLeft <= 2;
+        });
+    };
+    rail.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+}
+
+// ─── OVERCOOKED RESULT PICKER (component 11) ─────────────────────────────────
+function initOcResults() {
+    const sel = document.getElementById('ocsel');
+    if (!sel) return;
+    const bodies = document.querySelectorAll('.oc-body');
+    const show = key => bodies.forEach(b => { b.hidden = b.dataset.oc !== key; });
+    show(sel.value);
+    sel.addEventListener('change', () => show(sel.value));
+}
+
 // ─── BOOT ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
     initThemes();
@@ -328,4 +425,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     initMatrixRail();
     initMatrixTotals();
     initResultPicker();
+    initOcRoster();
+    initOcMaps();
+    initOcResults();
 });

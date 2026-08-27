@@ -1,0 +1,339 @@
+<!-- ===== OVERCOOKED — Experiment 2, Environment Generalizability =====
+     Order follows the reading order of the paper: the world first, then how the
+     model is asked, then who was asked, then what came back.
+       1. the seven kitchen layouts
+       2. the two prompt variants
+       3. the model line-up
+       4. the results
+     Behaviour lives in js/main.js: initOcMaps, initOcRoster, initOcResults.
+     The prompt switch reuses initPromptSwitch from component 05. -->
+<section id="overcooked">
+    <div class="wrap">
+
+        <div class="sh">
+            <div class="sh-label">Second Environment</div>
+            <div class="sh-title">Overcooked</div>
+            <div class="sh-sub">The same prompting method, the same six metrics, a different world.
+                Twenty scenarios across seven kitchen layouts, seven models, two prompt variants —
+                280 annotated samples. Instruction inference now has to survive a domain where the
+                principal moves, carries, and hands things over.</div>
+        </div>
+
+        <!-- ── 1. KITCHEN LAYOUTS ──────────────────────────────────────── -->
+        <div class="oc-maps">
+            <div class="oc-block-head">
+                <h3>Seven kitchens</h3>
+                <div class="oc-maps-nav">
+                    <button class="oc-arrow" data-dir="-1" aria-label="Previous layout">&#8249;</button>
+                    <button class="oc-arrow" data-dir="1" aria-label="Next layout">&#8250;</button>
+                </div>
+            </div>
+            <p class="oc-lede">Five are the standard Overcooked-AI layouts; two were added for
+                mechanisms the others do not contain — strict complementarity, and a single-tile
+                choke point. Coordinates are the agent's only view of the world.</p>
+
+            <div class="oc-rail">
+                <figure class="oc-map"><img src="assets/overcooked/map1_cramped_room.jpg" alt="Cramped Room layout" loading="lazy">
+                    <figcaption><b>Cramped Room</b><span>One small shared room. Everything within reach of both.</span></figcaption></figure>
+                <figure class="oc-map"><img src="assets/overcooked/map2_mirrored_halves.jpg" alt="Mirrored Halves layout" loading="lazy">
+                    <figcaption><b>Mirrored Halves</b><span>Split down the middle, but each half is a complete kitchen.</span></figcaption></figure>
+                <figure class="oc-map"><img src="assets/overcooked/map3_open_room.jpg" alt="Open Room layout" loading="lazy">
+                    <figcaption><b>Open Room</b><span>One of everything, nothing constrained.</span></figcaption></figure>
+                <figure class="oc-map"><img src="assets/overcooked/map4_counter_circuit.jpg" alt="Counter Circuit layout" loading="lazy">
+                    <figcaption><b>Counter Circuit</b><span>A central counter block with two pots above it.</span></figcaption></figure>
+                <figure class="oc-map"><img src="assets/overcooked/map5_twin_stations.jpg" alt="Twin Stations layout" loading="lazy">
+                    <figcaption><b>Twin Stations</b><span>Symmetric and duplicated, so deixis stops resolving.</span></figcaption></figure>
+                <figure class="oc-map"><img src="assets/overcooked/map6_forced_coordination.jpg" alt="Forced Coordination layout" loading="lazy">
+                    <figcaption><b>Forced Coordination</b><span>Complementary halves. Neither can finish a soup alone.</span></figcaption></figure>
+                <figure class="oc-map"><img src="assets/overcooked/map7_bottleneck.jpg" alt="Bottleneck layout" loading="lazy">
+                    <figcaption><b>Bottleneck</b><span>One shared room joined by a single-tile choke point.</span></figcaption></figure>
+            </div>
+            <div class="oc-dots" role="tablist" aria-label="Kitchen layouts"></div>
+        </div>
+
+        <!-- ── 2. PROMPT VARIANTS ──────────────────────────────────────── -->
+        <div class="oc-prompts">
+            <div class="oc-block-head"><h3>Two prompt variants</h3></div>
+            <p class="oc-lede">The skeleton is the one carried over from Doors, Keys and Gems, block for
+                block. Only the contents change, so any difference in performance is attributable to the
+                domain rather than to a rewritten prompt.</p>
+
+            <div class="pr-switch ocpr">
+                <button class="pr-btn on" data-pane="occp">CP</button>
+                <button class="pr-btn" data-pane="ocfs">Fs-CoT</button>
+            </div>
+
+            <div class="pr-panes">
+                <div class="pr-pane" data-pane="occp">
+                    <div class="oc-pr-grid">
+                        <div class="pr-card shared">
+                            <div class="pr-head"><span class="pr-name">Shared skeleton</span>
+                                <span class="pr-flag f-shared">identical in both</span></div>
+                            <div class="pr-body"><span class="pr-k">Intro</span>
+  cooperative cooking domain, gridworld kitchen
+<span class="pr-k">Figure 1</span>  <span class="pr-dim">(reference kitchen, 1.txt)</span>
+<span class="pr-k">Human's objective</span>
+  wants the pending order completed, says so in one callout
+<span class="pr-k">Your objective</span>
+  infer intent from instruction + movement + order queue
+<span class="pr-k">Rules of the Game</span>  <span class="pr-dim">(11 rules)</span>
+<span class="pr-k">Current Kitchen Layout</span>
+  <span class="pr-dim">&lt;grid&gt; + object positions as (row, column) + reachability</span>
+<span class="pr-k">Query</span>
+  Pending order(s): <span class="pr-dim">&lt;order&gt;</span>
+  Human Action:     <span class="pr-dim">&lt;movement&gt;</span>
+  Instruction:      <span class="pr-dim">&lt;callout&gt;</span>
+<span class="pr-k">Output contract</span>  <span class="pr-dim">(one JSON object between markers)</span></div>
+                        </div>
+                        <div class="pr-card">
+                            <div class="pr-head"><span class="pr-name">CP · commonsense prompt</span>
+                                <span class="pr-flag f-cp">2 worked problems</span></div>
+                            <div class="pr-body">Two problems, each shown as three figures:
+
+  <span class="pr-k">Initial</span>    the kitchen before the callout
+  <span class="pr-k">Observed</span>   where the principal moved, and what they said
+  <span class="pr-k">Completed</span>  the kitchen after the plan runs
+
+then the worked answer in the same JSON the
+model must produce.
+
+<span class="pr-dim">Problem 1 · Coordination Ring — a count left
+implicit by the callout, resolved from the order.
+Problem 2 · Split Kitchen — separate regions, so
+the hand-off has to route through a shared counter.</span>
+
+<span class="pr-k">grids shown</span>  <span class="pr-dim">yes, all six figures</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pr-pane" data-pane="ocfs" hidden>
+                    <div class="oc-pr-grid">
+                        <div class="pr-card shared">
+                            <div class="pr-head"><span class="pr-name">Shared skeleton</span>
+                                <span class="pr-flag f-shared">identical in both</span></div>
+                            <div class="pr-body"><span class="pr-k">Intro</span>
+  cooperative cooking domain, gridworld kitchen
+<span class="pr-k">Figure 1</span>  <span class="pr-dim">(reference kitchen, 1.txt)</span>
+<span class="pr-k">Human's objective</span>
+  wants the pending order completed, says so in one callout
+<span class="pr-k">Your objective</span>
+  infer intent from instruction + movement + order queue
+<span class="pr-k">Rules of the Game</span>  <span class="pr-dim">(11 rules + 4 inherited from DKG)</span>
+<span class="pr-k">Current Kitchen Layout</span>
+  <span class="pr-dim">&lt;grid&gt; + object positions as (row, column) + reachability</span>
+<span class="pr-k">Query</span>
+  Pending order(s): <span class="pr-dim">&lt;order&gt;</span>
+  Human Action:     <span class="pr-dim">&lt;movement&gt;</span>
+  Instruction:      <span class="pr-dim">&lt;callout&gt;</span>
+<span class="pr-k">Output contract</span>  <span class="pr-dim">(one JSON object between markers)</span></div>
+                        </div>
+                        <div class="pr-card">
+                            <div class="pr-head"><span class="pr-name">Fs-CoT · few-shot chain of thought</span>
+                                <span class="pr-flag f-fs">7 exemplars</span></div>
+                            <div class="pr-body">Seven solved examples, each one:
+
+  Pending order(s) &middot; Human Action &middot; Instruction
+  &rarr; type, reasoning, intent, target, plan
+
+<span class="pr-k">coverage</span>
+  2 clear &middot; 2 incomplete &middot; 3 ambiguous
+
+<span class="pr-k">grids shown</span>  <span class="pr-dim">NO — the exemplars carry no layout,
+so the model cannot pattern-match a kitchen.</span>
+
+<span class="pr-dim">Three of the seven are evaluation scenarios
+carrying their own ground truth, mirroring the
+Doors, Keys and Gems design. Four use layouts
+that never appear in the evaluation set.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── 3. MODEL LINE-UP ────────────────────────────────────────── -->
+        <div class="oc-roster-wrap">
+            <div class="oc-block-head"><h3>Seven models</h3></div>
+            <p class="oc-lede">Three carry over from Doors, Keys and Gems at their published settings.
+                Four are current-generation, each at its provider's highest reasoning effort. The rows
+                below pair each current model with its predecessor in the same family.</p>
+
+            <div class="oc-roster">
+                <div class="oc-tier oc-tier-1">
+                    <article class="oc-model oc-lead" style="--mc:#d97757">
+                        <div class="oc-logo">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <g fill="currentColor">
+                                    <rect x="11" y="2" width="2" height="20" rx="1"/>
+                                    <rect x="11" y="2" width="2" height="20" rx="1" transform="rotate(60 12 12)"/>
+                                    <rect x="11" y="2" width="2" height="20" rx="1" transform="rotate(120 12 12)"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="oc-name">Claude Opus 5</div>
+                        <div class="oc-meta">Anthropic · reasoning, effort high</div>
+                        <div class="oc-stats">
+                            <span><b>0.95</b><small>plan optimality</small></span>
+                            <span><b>0.90</b><small>intent accuracy</small></span>
+                        </div>
+                        <div class="oc-bar"><i style="--w:95%"></i></div>
+                        <div class="oc-note-inline">No earlier Claude in the Doors, Keys and Gems cohort,
+                            so this row stands alone.</div>
+                    </article>
+                </div>
+
+                <div class="oc-tier oc-tier-2">
+                    <article class="oc-model" style="--mc:#10a37f" data-fam="openai">
+                        <div class="oc-logo">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill="none" stroke="currentColor" stroke-width="1.7"
+                                      d="M12 3.2 19.6 7.6v8.8L12 20.8 4.4 16.4V7.6z"/>
+                                <circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.7"/>
+                            </svg>
+                        </div>
+                        <div class="oc-name">GPT-5.6 Sol</div>
+                        <div class="oc-meta">OpenAI · Responses API</div>
+                        <div class="oc-stats"><span><b>0.75</b><small>plan optimality</small></span></div>
+                        <div class="oc-bar"><i style="--w:75%"></i></div>
+                    </article>
+
+                    <article class="oc-model" style="--mc:#7c6cf5" data-fam="deepseek">
+                        <div class="oc-logo">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                                      d="M3 14.5c3.2 0 3.2-3.4 6.4-3.4s3.2 3.4 6.4 3.4 3.2-3.4 5.2-3.4"/>
+                                <path fill="currentColor" d="M17.5 6.2a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+                            </svg>
+                        </div>
+                        <div class="oc-name">DeepSeek v4 Pro</div>
+                        <div class="oc-meta">DeepSeek · thinking enabled</div>
+                        <div class="oc-stats"><span><b>0.85</b><small>plan optimality</small></span></div>
+                        <div class="oc-bar"><i style="--w:85%"></i></div>
+                    </article>
+
+                    <article class="oc-model" style="--mc:#4285f4" data-fam="google">
+                        <div class="oc-logo">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill="currentColor"
+                                      d="M12 1.6c.9 4.9 3.6 7.6 8.5 8.5v3.8c-4.9.9-7.6 3.6-8.5 8.5h-3.8c-.9-4.9-3.6-7.6-8.5-8.5v-3.8c4.9-.9 7.6-3.6 8.5-8.5z"
+                                      transform="translate(1.9 0) scale(0.84)"/>
+                            </svg>
+                        </div>
+                        <div class="oc-name">Gemini 3.1 Pro</div>
+                        <div class="oc-meta">Google · reasoning, effort high</div>
+                        <div class="oc-stats"><span><b>0.95</b><small>plan optimality</small></span></div>
+                        <div class="oc-bar"><i style="--w:95%"></i></div>
+                    </article>
+                </div>
+
+                <!-- three animated arrows, one per family column -->
+                <div class="oc-links" aria-hidden="true">
+                    <span class="oc-link"><i></i></span>
+                    <span class="oc-link"><i></i></span>
+                    <span class="oc-link"><i></i></span>
+                </div>
+
+                <div class="oc-tier oc-tier-3">
+                    <div class="oc-tier-tag">Carried over from Doors, Keys &amp; Gems</div>
+                    <article class="oc-model oc-old" style="--mc:#6366f1" data-fam="openai">
+                        <div class="oc-logo">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill="none" stroke="currentColor" stroke-width="1.7"
+                                      d="M12 3.2 19.6 7.6v8.8L12 20.8 4.4 16.4V7.6z"/>
+                                <circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.7"/>
+                            </svg>
+                        </div>
+                        <div class="oc-name">GPT-4o</div>
+                        <div class="oc-meta">OpenAI · no reasoning phase</div>
+                        <div class="oc-stats"><span><b>0.60</b><small>plan optimality</small></span></div>
+                        <div class="oc-bar"><i style="--w:60%"></i></div>
+                    </article>
+
+                    <article class="oc-model oc-old" style="--mc:#14b8a6" data-fam="deepseek">
+                        <div class="oc-logo">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+                                      d="M3 14.5c3.2 0 3.2-3.4 6.4-3.4s3.2 3.4 6.4 3.4 3.2-3.4 5.2-3.4"/>
+                                <path fill="currentColor" d="M17.5 6.2a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+                            </svg>
+                        </div>
+                        <div class="oc-name">DeepSeek-R1</div>
+                        <div class="oc-meta">DeepSeek · reasoning</div>
+                        <div class="oc-stats"><span><b>0.90</b><small>plan optimality</small></span></div>
+                        <div class="oc-bar"><i style="--w:90%"></i></div>
+                    </article>
+
+                    <article class="oc-model oc-old" style="--mc:#a78bfa" data-fam="google">
+                        <div class="oc-logo">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill="currentColor"
+                                      d="M12 1.6c.9 4.9 3.6 7.6 8.5 8.5v3.8c-4.9.9-7.6 3.6-8.5 8.5h-3.8c-.9-4.9-3.6-7.6-8.5-8.5v-3.8c4.9-.9 7.6-3.6 8.5-8.5z"
+                                      transform="translate(1.9 0) scale(0.84)"/>
+                            </svg>
+                        </div>
+                        <div class="oc-name">Gemma-3-27B</div>
+                        <div class="oc-meta">Google · no reasoning phase</div>
+                        <div class="oc-stats"><span><b>0.25</b><small>plan optimality</small></span></div>
+                        <div class="oc-bar"><i style="--w:25%"></i></div>
+                    </article>
+                </div>
+            </div>
+
+            <p class="oc-note">Plan optimality shown is each model's better variant. What separates
+                these models is whether they reason at all, not how long they reason for: Gemini spends
+                about 760 output tokens per answer — no more than Gemma — while DeepSeek v4 Pro spends
+                25&times; that and does not place above it.</p>
+        </div>
+
+        <!-- ── 4. RESULTS ──────────────────────────────────────────────── -->
+        <div class="oc-results">
+            <div class="oc-block-head"><h3>Overcooked Results</h3></div>
+            <div class="mv-pick">
+                <label for="ocsel">Prompt variant</label>
+                <select id="ocsel">
+                    <option value="CP">CP · commonsense prompt</option>
+                    <option value="FsCoT">Fs-CoT · few-shot chain of thought</option>
+                </select>
+            </div>
+
+            <div class="mx-scroll">
+                <table class="res-table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left">Model</th>
+                            <th>Instruction<br><small>accuracy</small></th>
+                            <th>Intent<br><small>accuracy</small></th>
+                            <th>Plan<br><small>feasibility</small></th>
+                            <th>Plan<br><small>optimality</small></th>
+                            <th>Action<br><small>feasibility</small></th>
+                            <th>Action<br><small>optimality</small></th>
+                        </tr>
+                    </thead>
+                    <tbody class="oc-body" data-oc="CP">
+                        <tr><td class="res-lbl">Claude Opus 5</td><td>1.000</td><td>0.950</td><td>0.945</td><td>0.900</td><td>0.918</td><td>0.902</td></tr>
+                        <tr><td class="res-lbl">Gemini 3.1 Pro</td><td>0.950</td><td>0.950</td><td>0.955</td><td>0.900</td><td>0.975</td><td>0.954</td></tr>
+                        <tr><td class="res-lbl">DeepSeek v4 Pro</td><td>1.000</td><td>0.950</td><td>0.962</td><td>0.850</td><td>0.955</td><td>0.933</td></tr>
+                        <tr><td class="res-lbl">DeepSeek-R1</td><td>0.950</td><td>0.900</td><td>0.917</td><td>0.800</td><td>0.920</td><td>0.832</td></tr>
+                        <tr><td class="res-lbl">GPT-5.6 Sol</td><td>0.950</td><td>0.850</td><td>0.915</td><td>0.750</td><td>0.933</td><td>0.827</td></tr>
+                        <tr><td class="res-lbl">GPT-4o</td><td>0.650</td><td>0.850</td><td>0.831</td><td>0.600</td><td>0.831</td><td>0.775</td></tr>
+                        <tr><td class="res-lbl">Gemma-3-27B</td><td>0.400</td><td>0.650</td><td>0.464</td><td>0.250</td><td>0.486</td><td>0.399</td></tr>
+                    </tbody>
+                    <tbody class="oc-body" data-oc="FsCoT" hidden>
+                        <tr><td class="res-lbl">Claude Opus 5</td><td>0.950 <i class="dn">&#9660;&minus;.050</i></td><td>0.900 <i class="dn">&#9660;&minus;.050</i></td><td>0.965 <i class="dp">&#9650;+.020</i></td><td>0.950 <i class="dp">&#9650;+.050</i></td><td>0.983 <i class="dp">&#9650;+.065</i></td><td>0.933 <i class="dp">&#9650;+.032</i></td></tr>
+                        <tr><td class="res-lbl">Gemini 3.1 Pro</td><td>0.950 <i class="d0">&plusmn;0</i></td><td>0.950 <i class="d0">&plusmn;0</i></td><td>0.994 <i class="dp">&#9650;+.039</i></td><td>0.950 <i class="dp">&#9650;+.050</i></td><td>1.000 <i class="dp">&#9650;+.025</i></td><td>1.000 <i class="dp">&#9650;+.046</i></td></tr>
+                        <tr><td class="res-lbl">DeepSeek v4 Pro</td><td>0.950 <i class="dn">&#9660;&minus;.050</i></td><td>0.950 <i class="d0">&plusmn;0</i></td><td>0.935 <i class="dn">&#9660;&minus;.028</i></td><td>0.800 <i class="dn">&#9660;&minus;.050</i></td><td>0.953 <i class="dn">&#9660;&minus;.002</i></td><td>0.902 <i class="dn">&#9660;&minus;.031</i></td></tr>
+                        <tr><td class="res-lbl">DeepSeek-R1</td><td>0.900 <i class="dn">&#9660;&minus;.050</i></td><td>0.950 <i class="dp">&#9650;+.050</i></td><td>0.969 <i class="dp">&#9650;+.052</i></td><td>0.900 <i class="dp">&#9650;+.100</i></td><td>0.958 <i class="dp">&#9650;+.039</i></td><td>0.917 <i class="dp">&#9650;+.084</i></td></tr>
+                        <tr><td class="res-lbl">GPT-5.6 Sol</td><td>0.950 <i class="d0">&plusmn;0</i></td><td>0.950 <i class="dp">&#9650;+.100</i></td><td>0.941 <i class="dp">&#9650;+.026</i></td><td>0.700 <i class="dn">&#9660;&minus;.050</i></td><td>0.986 <i class="dp">&#9650;+.053</i></td><td>0.917 <i class="dp">&#9650;+.090</i></td></tr>
+                        <tr><td class="res-lbl">GPT-4o</td><td>0.600 <i class="dn">&#9660;&minus;.050</i></td><td>0.900 <i class="dp">&#9650;+.050</i></td><td>0.803 <i class="dn">&#9660;&minus;.028</i></td><td>0.550 <i class="dn">&#9660;&minus;.050</i></td><td>0.889 <i class="dp">&#9650;+.058</i></td><td>0.816 <i class="dp">&#9650;+.041</i></td></tr>
+                        <tr><td class="res-lbl">Gemma-3-27B</td><td>0.700 <i class="dp">&#9650;+.300</i></td><td>0.850 <i class="dp">&#9650;+.200</i></td><td>0.574 <i class="dp">&#9650;+.111</i></td><td>0.250 <i class="d0">&plusmn;0</i></td><td>0.712 <i class="dp">&#9650;+.226</i></td><td>0.561 <i class="dp">&#9650;+.162</i></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="oc-cap">Deltas on the Fs-CoT table are against that model's own CP score. Every cell
+                is a mean over the same twenty scenarios, so the comparison is paired throughout.
+                No CP-versus-Fs-CoT difference reaches significance at n&nbsp;=&nbsp;20.</p>
+        </div>
+
+    </div>
+</section>
