@@ -174,10 +174,10 @@ that never appear in the evaluation set.</span></div>
                         <div class="oc-name">Claude Opus 5</div>
                         <div class="oc-meta">Anthropic · reasoning, effort high</div>
                         <div class="oc-stats">
-                            <span><b>0.95</b><small>plan optimality</small></span>
-                            <span><b>0.90</b><small>intent accuracy</small></span>
+                            <span><b>1.00</b><small>plan optimality</small></span>
+                            <span><b>1.00</b><small>intent accuracy</small></span>
                         </div>
-                        <div class="oc-bar"><i style="--w:95%"></i></div>
+                        <div class="oc-bar"><i style="--w:100%"></i></div>
                         <div class="oc-note-inline">No earlier Claude in the Doors, Keys and Gems cohort,
                             so this row stands alone.</div>
                     </article>
@@ -311,22 +311,26 @@ that never appear in the evaluation set.</span></div>
                         </tr>
                     </thead>
                     <tbody class="oc-body" data-oc="CP">
-                        <tr><td class="res-lbl">Claude Opus 5</td><td>1.000</td><td>0.950</td><td>0.945</td><td>0.900</td><td>0.918</td><td>0.902</td></tr>
-                        <tr><td class="res-lbl">Gemini 3.1 Pro</td><td>0.950</td><td>0.950</td><td>0.955</td><td>0.900</td><td>0.975</td><td>0.954</td></tr>
-                        <tr><td class="res-lbl">DeepSeek v4 Pro</td><td>1.000</td><td>0.950</td><td>0.962</td><td>0.850</td><td>0.955</td><td>0.933</td></tr>
-                        <tr><td class="res-lbl">DeepSeek-R1</td><td>0.950</td><td>0.900</td><td>0.917</td><td>0.800</td><td>0.920</td><td>0.832</td></tr>
-                        <tr><td class="res-lbl">GPT-5.6 Sol</td><td>0.950</td><td>0.850</td><td>0.915</td><td>0.750</td><td>0.933</td><td>0.827</td></tr>
-                        <tr><td class="res-lbl">GPT-4o</td><td>0.650</td><td>0.850</td><td>0.831</td><td>0.600</td><td>0.831</td><td>0.775</td></tr>
-                        <tr><td class="res-lbl">Gemma-3-27B</td><td>0.400</td><td>0.650</td><td>0.464</td><td>0.250</td><td>0.486</td><td>0.399</td></tr>
+<!-- >>> AUTO:oc-cp -->
+                        <tr><td class="res-lbl">Claude Opus 5</td><td>1.000</td><td>0.950</td><td>0.963</td><td>0.900</td><td>0.943</td><td>0.927</td></tr>
+                        <tr><td class="res-lbl">Gemini 3.1 Pro</td><td>0.950</td><td>1.000</td><td>0.984</td><td>0.900</td><td>1.000</td><td>1.000</td></tr>
+                        <tr><td class="res-lbl">DeepSeek v4 Pro</td><td>1.000</td><td>1.000</td><td>0.981</td><td>0.850</td><td>0.980</td><td>0.960</td></tr>
+                        <tr><td class="res-lbl">DeepSeek-R1</td><td>0.950</td><td>0.950</td><td>0.955</td><td>0.800</td><td>0.957</td><td>0.906</td></tr>
+                        <tr><td class="res-lbl">GPT-5.6 Sol</td><td>0.950</td><td>0.900</td><td>0.944</td><td>0.750</td><td>0.958</td><td>0.858</td></tr>
+                        <tr><td class="res-lbl">GPT-4o</td><td>0.650</td><td>0.850</td><td>0.876</td><td>0.600</td><td>0.896</td><td>0.854</td></tr>
+                        <tr><td class="res-lbl">Gemma-3-27B</td><td>0.400</td><td>0.650</td><td>0.482</td><td>0.250</td><td>0.539</td><td>0.467</td></tr>
+<!-- <<< AUTO:oc-cp -->
                     </tbody>
                     <tbody class="oc-body" data-oc="FsCoT" hidden>
-                        <tr><td class="res-lbl">Claude Opus 5</td><td>0.950 <i class="dn">&#9660;&minus;.050</i></td><td>0.900 <i class="dn">&#9660;&minus;.050</i></td><td>0.965 <i class="dp">&#9650;+.020</i></td><td>0.950 <i class="dp">&#9650;+.050</i></td><td>0.983 <i class="dp">&#9650;+.065</i></td><td>0.933 <i class="dp">&#9650;+.032</i></td></tr>
-                        <tr><td class="res-lbl">Gemini 3.1 Pro</td><td>0.950 <i class="d0">&plusmn;0</i></td><td>0.950 <i class="d0">&plusmn;0</i></td><td>0.994 <i class="dp">&#9650;+.039</i></td><td>0.950 <i class="dp">&#9650;+.050</i></td><td>1.000 <i class="dp">&#9650;+.025</i></td><td>1.000 <i class="dp">&#9650;+.046</i></td></tr>
-                        <tr><td class="res-lbl">DeepSeek v4 Pro</td><td>0.950 <i class="dn">&#9660;&minus;.050</i></td><td>0.950 <i class="d0">&plusmn;0</i></td><td>0.935 <i class="dn">&#9660;&minus;.028</i></td><td>0.800 <i class="dn">&#9660;&minus;.050</i></td><td>0.953 <i class="dn">&#9660;&minus;.002</i></td><td>0.902 <i class="dn">&#9660;&minus;.031</i></td></tr>
-                        <tr><td class="res-lbl">DeepSeek-R1</td><td>0.900 <i class="dn">&#9660;&minus;.050</i></td><td>0.950 <i class="dp">&#9650;+.050</i></td><td>0.969 <i class="dp">&#9650;+.052</i></td><td>0.900 <i class="dp">&#9650;+.100</i></td><td>0.958 <i class="dp">&#9650;+.039</i></td><td>0.917 <i class="dp">&#9650;+.084</i></td></tr>
-                        <tr><td class="res-lbl">GPT-5.6 Sol</td><td>0.950 <i class="d0">&plusmn;0</i></td><td>0.950 <i class="dp">&#9650;+.100</i></td><td>0.941 <i class="dp">&#9650;+.026</i></td><td>0.700 <i class="dn">&#9660;&minus;.050</i></td><td>0.986 <i class="dp">&#9650;+.053</i></td><td>0.917 <i class="dp">&#9650;+.090</i></td></tr>
-                        <tr><td class="res-lbl">GPT-4o</td><td>0.600 <i class="dn">&#9660;&minus;.050</i></td><td>0.900 <i class="dp">&#9650;+.050</i></td><td>0.803 <i class="dn">&#9660;&minus;.028</i></td><td>0.550 <i class="dn">&#9660;&minus;.050</i></td><td>0.889 <i class="dp">&#9650;+.058</i></td><td>0.816 <i class="dp">&#9650;+.041</i></td></tr>
-                        <tr><td class="res-lbl">Gemma-3-27B</td><td>0.700 <i class="dp">&#9650;+.300</i></td><td>0.850 <i class="dp">&#9650;+.200</i></td><td>0.574 <i class="dp">&#9650;+.111</i></td><td>0.250 <i class="d0">&plusmn;0</i></td><td>0.712 <i class="dp">&#9650;+.226</i></td><td>0.561 <i class="dp">&#9650;+.162</i></td></tr>
+<!-- >>> AUTO:oc-fscot -->
+                        <tr><td class="res-lbl">Claude Opus 5</td><td>0.950 <i class="dn">&#9660;&minus;.050</i></td><td>1.000 <i class="dp">&#9650;+.050</i></td><td>1.000 <i class="dp">&#9650;+.037</i></td><td>1.000 <i class="dp">&#9650;+.100</i></td><td>1.000 <i class="dp">&#9650;+.057</i></td><td>1.000 <i class="dp">&#9650;+.073</i></td></tr>
+                        <tr><td class="res-lbl">Gemini 3.1 Pro</td><td>0.950 <i class="d0">&plusmn;0</i></td><td>1.000 <i class="d0">&plusmn;0</i></td><td>0.994 <i class="dp">&#9650;+.010</i></td><td>0.950 <i class="dp">&#9650;+.050</i></td><td>1.000 <i class="d0">&plusmn;0</i></td><td>1.000 <i class="d0">&plusmn;0</i></td></tr>
+                        <tr><td class="res-lbl">DeepSeek v4 Pro</td><td>0.950 <i class="dn">&#9660;&minus;.050</i></td><td>1.000 <i class="d0">&plusmn;0</i></td><td>0.977 <i class="dn">&#9660;&minus;.004</i></td><td>0.850 <i class="d0">&plusmn;0</i></td><td>0.990 <i class="dp">&#9650;+.010</i></td><td>0.975 <i class="dp">&#9650;+.015</i></td></tr>
+                        <tr><td class="res-lbl">DeepSeek-R1</td><td>0.900 <i class="dn">&#9660;&minus;.050</i></td><td>1.000 <i class="dp">&#9650;+.050</i></td><td>0.988 <i class="dp">&#9650;+.032</i></td><td>0.900 <i class="dp">&#9650;+.100</i></td><td>1.000 <i class="dp">&#9650;+.043</i></td><td>0.950 <i class="dp">&#9650;+.044</i></td></tr>
+                        <tr><td class="res-lbl">GPT-5.6 Sol</td><td>0.950 <i class="d0">&plusmn;0</i></td><td>1.000 <i class="dp">&#9650;+.100</i></td><td>0.948 <i class="dp">&#9650;+.005</i></td><td>0.700 <i class="dn">&#9660;&minus;.050</i></td><td>0.994 <i class="dp">&#9650;+.036</i></td><td>0.915 <i class="dp">&#9650;+.057</i></td></tr>
+                        <tr><td class="res-lbl">GPT-4o</td><td>0.600 <i class="dn">&#9660;&minus;.050</i></td><td>0.900 <i class="dp">&#9650;+.050</i></td><td>0.829 <i class="dn">&#9660;&minus;.047</i></td><td>0.550 <i class="dn">&#9660;&minus;.050</i></td><td>0.941 <i class="dp">&#9650;+.045</i></td><td>0.868 <i class="dp">&#9650;+.014</i></td></tr>
+                        <tr><td class="res-lbl">Gemma-3-27B</td><td>0.700 <i class="dp">&#9650;+.300</i></td><td>0.850 <i class="dp">&#9650;+.200</i></td><td>0.576 <i class="dp">&#9650;+.093</i></td><td>0.250 <i class="d0">&plusmn;0</i></td><td>0.740 <i class="dp">&#9650;+.201</i></td><td>0.623 <i class="dp">&#9650;+.156</i></td></tr>
+<!-- <<< AUTO:oc-fscot -->
                     </tbody>
                 </table>
             </div>
