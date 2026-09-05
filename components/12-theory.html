@@ -1,0 +1,171 @@
+<section id="theory">
+    <div class="wrap">
+        <div class="sh">
+            <div class="sh-label">Theoretical Account</div>
+            <div class="sh-title">Post-Training Paradigms, Not Product Names</div>
+            <div class="sh-sub">An account naming three specific models cannot anticipate a fourth. We therefore
+                restate it as a claim about what a model was <em>optimised to do with an exemplar</em> &mdash; a
+                property of the training signal &mdash; and then test the prediction on models the account was not
+                built on.<span class="flow-hint">Hover a paradigm for the models behind it.</span></div>
+        </div>
+
+        <!-- ── three paradigms, as a flow ─────────────────────────────────── -->
+        <div class="pipeline-scroller">
+            <div class="pipeline">
+
+                <div class="stage stg-rl">
+                    <div class="stage-n">01</div>
+                    <div class="s-num">Outcome-reward RL</div>
+                    <span class="s-icon">&#127919;</span>
+                    <div class="s-title">Rewarded for the destination</div>
+                    <div class="s-desc">The model is scored on reaching a correct final state and is free to choose
+                        its own route there. An exemplar then constrains a trajectory it has already optimised.</div>
+                    <div class="chips">
+                        <span class="chip m2">DeepSeek-R1</span>
+                        <span class="chip m7">DeepSeek V4 Pro</span>
+                        <span class="chip chip-pred">predicts: neutral</span>
+                    </div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">Reward is on</span><span class="dr-v">the final state</span></div>
+                        <div class="dr-row"><span class="dr-k">An exemplar</span><span class="dr-v">constrains a route</span></div>
+                        <div class="dr-row"><span class="dr-k">DeepSeek-R1</span><span class="dr-v">+0.037</span></div>
+                        <div class="dr-row"><span class="dr-k">DeepSeek V4 Pro</span><span class="dr-v">&minus;0.005</span></div>
+                    </div>
+                </div>
+
+                <div class="conn"><div class="conn-line cl-complete"></div></div>
+
+                <div class="stage stg-al">
+                    <div class="stage-n">02</div>
+                    <div class="s-num">Preference alignment</div>
+                    <span class="s-icon">&#129309;</span>
+                    <div class="s-title">Rewarded for the form</div>
+                    <div class="s-desc">The model is scored on producing responses human raters prefer, which makes it
+                        responsive to demonstrated form. An exemplar reads as a specification to match.</div>
+                    <div class="chips">
+                        <span class="chip m1">GPT-4o</span>
+                        <span class="chip m4">Claude Opus 5</span>
+                        <span class="chip m5">GPT-5.6 Sol</span>
+                        <span class="chip m6">Gemini 3.1 Pro</span>
+                        <span class="chip chip-pred">predicts: positive</span>
+                    </div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">Reward is on</span><span class="dr-v">preferred form</span></div>
+                        <div class="dr-row"><span class="dr-k">An exemplar</span><span class="dr-v">is a specification</span></div>
+                        <div class="dr-row"><span class="dr-k">Claude Opus 5</span><span class="dr-v">+0.044</span></div>
+                        <div class="dr-row"><span class="dr-k">GPT-5.6 Sol</span><span class="dr-v">+0.025</span></div>
+                        <div class="dr-row"><span class="dr-k">Gemini 3.1 Pro</span><span class="dr-v">+0.010</span></div>
+                        <div class="dr-row"><span class="dr-k">GPT-4o</span><span class="dr-v">&minus;0.006</span></div>
+                    </div>
+                </div>
+
+                <div class="conn"><div class="conn-line cl-complete"></div></div>
+
+                <div class="stage stg-di">
+                    <div class="stage-n">03</div>
+                    <div class="s-num">Knowledge distillation</div>
+                    <span class="s-icon">&#127891;</span>
+                    <div class="s-title">Trained to imitate a teacher</div>
+                    <div class="s-desc">The model reproduces the reasoning of a larger teacher, so an exemplar supplies
+                        exactly the teacher-like context it was trained to imitate. Smallest models gain most.</div>
+                    <div class="chips">
+                        <span class="chip m3">Gemma-3-27B</span>
+                        <span class="chip chip-pred">predicts: positive, largest</span>
+                    </div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">Trained on</span><span class="dr-v">a teacher's traces</span></div>
+                        <div class="dr-row"><span class="dr-k">An exemplar</span><span class="dr-v">is that context</span></div>
+                        <div class="dr-row"><span class="dr-k">Gemma-3-27B</span><span class="dr-v">+0.158</span></div>
+                        <div class="dr-row"><span class="dr-k">Rank of seven</span><span class="dr-v">largest gain</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tt-head">
+            <div class="tt-h-t">Tested on seven models &mdash; four of which the account was not built on</div>
+            <div class="tt-h-s">Observed is the mean movement from CP to Fs-CoT across the six metrics in
+                Overcooked.</div>
+        </div>
+
+        <div class="tt-scroll">
+            <table class="tt-table">
+                <thead>
+                    <tr>
+                        <th>Model</th>
+                        <th>Dominant paradigm</th>
+                        <th>Predicted</th>
+                        <th class="tt-num">Observed</th>
+                        <th>Agrees?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="--d:0ms">
+                        <td class="tt-m m3"><i class="mdot"></i>Gemma-3-27B</td>
+                        <td><span class="tt-p tt-b-di">Distillation</span></td>
+                        <td>Positive, large</td>
+                        <td class="tt-num tt-up">+0.158</td>
+                        <td><span class="tt-y">&#10003;</span></td>
+                    </tr>
+                    <tr style="--d:70ms">
+                        <td class="tt-m m4"><i class="mdot"></i>Claude Opus 5</td>
+                        <td><span class="tt-p tt-b-al">Alignment + reasoning</span></td>
+                        <td>Positive, small</td>
+                        <td class="tt-num tt-up">+0.044</td>
+                        <td><span class="tt-y">&#10003;</span></td>
+                    </tr>
+                    <tr style="--d:140ms">
+                        <td class="tt-m m2"><i class="mdot"></i>DeepSeek-R1</td>
+                        <td><span class="tt-p tt-b-rl">Outcome-reward RL</span></td>
+                        <td>Neutral</td>
+                        <td class="tt-num tt-up">+0.037</td>
+                        <td><span class="tt-y">&#10003;</span></td>
+                    </tr>
+                    <tr style="--d:210ms">
+                        <td class="tt-m m5"><i class="mdot"></i>GPT-5.6 Sol</td>
+                        <td><span class="tt-p tt-b-al">Alignment + reasoning</span></td>
+                        <td>Positive, small</td>
+                        <td class="tt-num tt-up">+0.025</td>
+                        <td><span class="tt-y">&#10003;</span></td>
+                    </tr>
+                    <tr style="--d:280ms">
+                        <td class="tt-m m6"><i class="mdot"></i>Gemini 3.1 Pro</td>
+                        <td><span class="tt-p tt-b-al">Alignment + reasoning</span></td>
+                        <td>Positive, small</td>
+                        <td class="tt-num tt-up">+0.010</td>
+                        <td><span class="tt-y">&#10003;</span></td>
+                    </tr>
+                    <tr style="--d:350ms">
+                        <td class="tt-m m7"><i class="mdot"></i>DeepSeek V4 Pro</td>
+                        <td><span class="tt-p tt-b-rl">Outcome-reward RL</span></td>
+                        <td>Neutral</td>
+                        <td class="tt-num tt-dn">&minus;0.005</td>
+                        <td><span class="tt-y">&#10003;</span></td>
+                    </tr>
+                    <tr class="tt-odd" style="--d:420ms">
+                        <td class="tt-m m1"><i class="mdot"></i>GPT-4o</td>
+                        <td><span class="tt-p tt-b-al">Preference alignment</span></td>
+                        <td>Positive</td>
+                        <td class="tt-num tt-dn">&minus;0.006</td>
+                        <td><span class="tt-n">attenuated</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tt-note">
+            <b>Six of seven agree.</b> The seventh is the informative one. GPT-4o is the model the alignment account
+            predicted would gain most, and it did in Doors, Keys and Gems &mdash; but its CP baseline in Overcooked is
+            far stronger, so there is little headroom left for exemplars to recover. The account predicts <i>how</i> a
+            model responds to an exemplar, not <i>how much room</i> remains for that response to show.
+        </div>
+
+        <div class="tt-caveat">
+            Paradigms are increasingly mixed: current systems combine preference alignment with an explicit reasoning
+            phase, and their small positive movements are consistent with a model that both accepts a demonstrated
+            format and has its own trajectory to protect. We therefore state the account as a prediction about
+            <b>direction</b>, not magnitude.
+        </div>
+    </div>
+</section>

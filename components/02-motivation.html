@@ -1,0 +1,211 @@
+<section id="motivation">
+    <div class="wrap">
+        <div class="sh">
+            <div class="sh-label">Motivation</div>
+            <div class="sh-title">Why Instructions Go Wrong</div>
+            <div class="sh-sub">People rarely say exactly what they mean. An agent that treats an underspecified
+                instruction as complete does not fail visibly &mdash; it produces a plausible action that is not the one
+                intended. The same callout, given to two kinds of agent.</div>
+        </div>
+
+        <div class="mu" id="muDiagram">
+
+            <!-- the shared callout -->
+            <div class="mu-callout">
+                <div class="mu-bubble">&ldquo;Can you get <em>that</em>?&rdquo;</div>
+                <div class="mu-bubble-tail" aria-hidden="true"></div>
+            </div>
+
+            <!-- ─────────── ROW 1 : traditional agent ─────────── -->
+            <div class="mu-row mu-row-bad">
+                <div class="mu-actor">
+                    <div class="mu-av mu-av-human" aria-hidden="true">
+                        <svg viewBox="0 0 100 100">
+                            <ellipse class="mu-shadow" cx="50" cy="95" rx="26" ry="4" />
+                            <path class="mu-body" d="M18 96c0-16 14-24 32-24s32 8 32 24z" />
+                            <path class="mu-collar" d="M39 74q11 11 22 0" />
+                            <circle class="mu-hair" cx="50" cy="42" r="28" />
+                            <circle class="mu-skin" cx="50" cy="45" r="23" />
+                            <path class="mu-fringe" d="M27 40q6-20 23-20t23 20q-9-9-23-9t-23 9z" />
+                            <circle class="mu-cheek" cx="34" cy="52" r="5" />
+                            <circle class="mu-cheek" cx="66" cy="52" r="5" />
+                            <g class="mu-heyes">
+                                <ellipse cx="41" cy="44" rx="3.4" ry="4.4" />
+                                <ellipse cx="59" cy="44" rx="3.4" ry="4.4" />
+                            </g>
+                            <circle class="mu-hglint" cx="42.3" cy="42.4" r="1.2" />
+                            <circle class="mu-hglint" cx="60.3" cy="42.4" r="1.2" />
+                            <path class="mu-brow-h" d="M36 36q5-3 10-1" />
+                            <path class="mu-brow-h" d="M54 35q5-2 10 1" />
+                            <path class="mu-smile" d="M43 55q7 6 14 0" />
+                        </svg>
+                    </div>
+                    <div class="mu-name">Collaborator</div>
+                    <div class="mu-role">gives the instruction</div>
+                </div>
+
+                <div class="mu-arrow">
+                    <div class="mu-tag">Unclear instruction</div>
+                    <div class="mu-line"><i></i></div>
+                </div>
+
+                <div class="mu-actor">
+                    <div class="mu-av mu-av-bot mu-bot-sad" aria-hidden="true">
+                        <svg viewBox="0 0 100 100">
+                            <ellipse class="mu-shadow" cx="50" cy="95" rx="24" ry="4" />
+                            <path class="mu-stem" d="M62 26C62 14 56 10 50 8" />
+                            <circle class="mu-antb" cx="48" cy="7" r="4.6" />
+                            <ellipse class="mu-earpod" cx="15" cy="46" rx="7" ry="11" />
+                            <ellipse class="mu-earpod" cx="85" cy="46" rx="7" ry="11" />
+                            <rect class="mu-torso" x="26" y="74" width="48" height="24" rx="12" />
+                            <rect class="mu-head-r" x="21" y="22" width="58" height="52" rx="23" />
+                            <rect class="mu-face-r" x="29" y="30" width="42" height="36" rx="15" />
+                            <path class="mu-brow mu-brow-l" d="M36 40q5-2 9 1" />
+                            <path class="mu-brow mu-brow-r" d="M55 41q4-3 9-1" />
+                            <g class="mu-beyes">
+                                <ellipse cx="40" cy="49" rx="4" ry="5.2" />
+                                <ellipse cx="60" cy="49" rx="4" ry="5.2" />
+                            </g>
+                            <circle class="mu-glint" cx="41.4" cy="47.2" r="1.4" />
+                            <circle class="mu-glint" cx="61.4" cy="47.2" r="1.4" />
+                            <path class="mu-bmouth" d="M42 61q8-5 16 0" />
+                            <text class="mu-q mu-q1" x="82" y="24">?</text>
+                            <text class="mu-q mu-q2" x="8" y="18">?</text>
+                        </svg>
+                    </div>
+                    <div class="mu-name">Traditional Agent</div>
+                    <div class="mu-role">literal execution</div>
+                </div>
+
+                <div class="mu-arrow">
+                    <div class="mu-tag">Performs task</div>
+                    <div class="mu-line"><i></i></div>
+                </div>
+
+                <div class="mu-out">
+                    <div class="mu-chk k-no"><span>Pragmatic context</span><b class="mu-no">&#10007;</b></div>
+                    <div class="mu-chk k-no"><span>Model intentions</span><b class="mu-no">&#10007;</b></div>
+                    <div class="mu-chk k-no"><span>Theory of Mind</span><b class="mu-no">&#10007;</b></div>
+                </div>
+            </div>
+
+            <div class="mu-vs"><span>versus</span></div>
+
+            <!-- ─────────── ROW 2 : LLM agent ─────────── -->
+            <div class="mu-row mu-row-good">
+                <div class="mu-actor">
+                    <div class="mu-av mu-av-human" aria-hidden="true">
+                        <svg viewBox="0 0 100 100">
+                            <ellipse class="mu-shadow" cx="50" cy="95" rx="26" ry="4" />
+                            <path class="mu-body" d="M18 96c0-16 14-24 32-24s32 8 32 24z" />
+                            <path class="mu-collar" d="M39 74q11 11 22 0" />
+                            <circle class="mu-hair" cx="50" cy="42" r="28" />
+                            <circle class="mu-skin" cx="50" cy="45" r="23" />
+                            <path class="mu-fringe" d="M27 40q6-20 23-20t23 20q-9-9-23-9t-23 9z" />
+                            <circle class="mu-cheek" cx="34" cy="52" r="5" />
+                            <circle class="mu-cheek" cx="66" cy="52" r="5" />
+                            <g class="mu-heyes">
+                                <ellipse cx="41" cy="44" rx="3.4" ry="4.4" />
+                                <ellipse cx="59" cy="44" rx="3.4" ry="4.4" />
+                            </g>
+                            <circle class="mu-hglint" cx="42.3" cy="42.4" r="1.2" />
+                            <circle class="mu-hglint" cx="60.3" cy="42.4" r="1.2" />
+                            <path class="mu-brow-h" d="M36 36q5-3 10-1" />
+                            <path class="mu-brow-h" d="M54 35q5-2 10 1" />
+                            <path class="mu-smile" d="M43 55q7 6 14 0" />
+                        </svg>
+                    </div>
+                    <div class="mu-name">Collaborator</div>
+                    <div class="mu-role">gives the instruction</div>
+                </div>
+
+                <div class="mu-arrow">
+                    <div class="mu-tag">Unclear instruction</div>
+                    <div class="mu-line"><i></i></div>
+                </div>
+
+                <div class="mu-actor">
+                    <div class="mu-av mu-av-bot mu-bot-glad" aria-hidden="true">
+                        <svg viewBox="0 0 100 100">
+                            <ellipse class="mu-shadow" cx="50" cy="95" rx="24" ry="4" />
+                            <path class="mu-stem" d="M62 26C62 14 56 10 50 8" />
+                            <circle class="mu-antb" cx="48" cy="7" r="4.6" />
+                            <ellipse class="mu-earpod" cx="15" cy="46" rx="7" ry="11" />
+                            <ellipse class="mu-earpod" cx="85" cy="46" rx="7" ry="11" />
+                            <rect class="mu-torso" x="26" y="74" width="48" height="24" rx="12" />
+                            <rect class="mu-head-r" x="21" y="22" width="58" height="52" rx="23" />
+                            <rect class="mu-face-r" x="29" y="30" width="42" height="36" rx="15" />
+                            <path class="mu-brow mu-brow-l" d="M36 39q5-3 9 0" />
+                            <path class="mu-brow mu-brow-r" d="M55 39q5-3 9 0" />
+                            <g class="mu-beyes">
+                                <ellipse cx="40" cy="49" rx="4" ry="5.2" />
+                                <ellipse cx="60" cy="49" rx="4" ry="5.2" />
+                            </g>
+                            <circle class="mu-glint" cx="41.4" cy="47.2" r="1.4" />
+                            <circle class="mu-glint" cx="61.4" cy="47.2" r="1.4" />
+                            <circle class="mu-bcheek" cx="33" cy="57" r="4" />
+                            <circle class="mu-bcheek" cx="67" cy="57" r="4" />
+                            <path class="mu-bmouth" d="M41 58q9 8 18 0" />
+                            <path class="mu-spark" d="M84 20l1.6 4.4L90 26l-4.4 1.6L84 32l-1.6-4.4L78 26l4.4-1.6z" />
+                        </svg>
+                    </div>
+                    <div class="mu-name">LLM Agent</div>
+                    <div class="mu-role">contextual interpretation</div>
+                </div>
+
+                <div class="mu-arrow">
+                    <div class="mu-tag">Performs task</div>
+                    <div class="mu-line"><i></i></div>
+                </div>
+
+                <div class="mu-out">
+                    <div class="mu-chk k-yes"><span>Pragmatic context</span><b class="mu-yes">&#10003;</b></div>
+                    <div class="mu-chk k-may"><span>Model intentions</span><b class="mu-may">?</b></div>
+                    <div class="mu-chk k-may"><span>Theory of Mind</span><b class="mu-may">?</b></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mu-ask">
+            An LLM reads the pragmatic context. Whether it genuinely models the collaborator&rsquo;s intentions is the
+            open question &mdash; and it is what <b>Instruction Inference</b> was built to measure.
+        </div>
+
+        <!-- ── where the instruction types come from ───────────────────────── -->
+        <div class="gr-strip">
+            <div class="gr-strip-h">Instruction types, grounded in Grice&rsquo;s maxims</div>
+            <div class="gr-cards">
+                <div class="grc grc-in">
+                    <div class="grc-max">Quantity</div>
+                    <div class="grc-t">Incomplete</div>
+                    <div class="grc-d">Omits information the action needs. The listener recovers it from the task.</div>
+                    <div class="grc-b">Included &middot; 6 scenarios</div>
+                </div>
+                <div class="grc grc-in">
+                    <div class="grc-max">Manner</div>
+                    <div class="grc-t">Ambiguous</div>
+                    <div class="grc-d">Admits two readings. <i>That</i> door resolves only against the layout and the
+                        principal&rsquo;s movement.</div>
+                    <div class="grc-b">Included &middot; 6 scenarios</div>
+                </div>
+                <div class="grc grc-ex">
+                    <div class="grc-max">Quality</div>
+                    <div class="grc-t">Invalid</div>
+                    <div class="grc-d">Asserts something false. That is deception, not collaboration.</div>
+                    <div class="grc-b">Excluded by design</div>
+                </div>
+                <div class="grc grc-ex">
+                    <div class="grc-max">Relation</div>
+                    <div class="grc-t">Irrelevant</div>
+                    <div class="grc-d">Unrelated to the shared goal &mdash; conversational breakdown, not inference.
+                    </div>
+                    <div class="grc-b">Excluded by design</div>
+                </div>
+            </div>
+            <div class="gr-sum">
+                <b>8</b> clear <span>+</span> <b>6</b> incomplete <span>+</span> <b>6</b> ambiguous
+                <span>=</span> <b class="gr-sum-t">20</b> scenarios per environment
+            </div>
+        </div>
+    </div>
+</section>

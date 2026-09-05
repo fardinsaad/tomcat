@@ -119,7 +119,7 @@ function initScrollReveal() {
         // Overcooked section disappeared. It is now plain visible, and keeps
         // only the animations that cannot hide anything: the slider, the hover
         // lifts, the bar fills and the family connectors.
-        '.stim, .cond, .met, .dom, .pr-card')
+        '.stim, .cond, .met, .dom, .pr-card, .cb, .mu-row, .grc, .stage')
         .forEach(el => {
             el.classList.add('reveal');
             revealObserver.observe(el);
@@ -247,6 +247,89 @@ function initMatrixRail() {
     document.querySelectorAll('.mx-bar span').forEach(b => { b.style.width = pct + '%'; });
     const txt = document.querySelector('.mx-rail-txt');
     if (txt) txt.textContent = done + ' / ' + total + ' samples annotated  ·  ' + pct + '%';
+}
+
+
+// ─── SEQUENCED REVEALS ───────────────────────────────────────────────────────
+// Rows and bars that should arrive in order rather than all at once. Each
+// element carries its own --d delay, so the observer only has to flip a class.
+function initSequenced() {
+    const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            e.target.classList.add('seq-in');
+            io.unobserve(e.target);
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(
+        '.tt-table tbody tr, .cb-split .cb-seg, .cbt-seg'
+    ).forEach(el => { el.classList.add('seq'); io.observe(el); });
+}
+
+// ─── MOTIVATION MARK SEQUENCE (component 02) ─────────────────────────────────
+// The six marks are one sequence spanning both rows, so both rows must start
+// on the same clock. The generic reveal observer flips .in-view per row, and
+// the two rows can cross the threshold a beat apart — enough to make the
+// crosses and the ticks overlap. This starts the whole diagram once instead.
+function initMotivationSequence() {
+    const mu = document.getElementById('muDiagram');
+    if (!mu) return;
+    const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            e.target.classList.add('mu-go');
+            obs.unobserve(e.target);
+        });
+    }, { threshold: 0.25 });
+    io.observe(mu);
+}
+
+// ─── EVIDENCE BASE REPLAY (component 03) ─────────────────────────────────────
+// The section's entrance animation is its best feature, and a reader who
+// scrolls to it slowly misses the whole thing. Every 10 seconds, and only
+// while the section is actually on screen, the bars re-fill, the counters
+// re-scramble, and a highlight sweeps across the coverage grid.
+function initCorpusReplay() {
+    const section = document.getElementById('corpus');
+    if (!section) return;
+
+    const bars     = section.querySelectorAll('.cb-seg, .cbt-seg');
+    const counters = section.querySelectorAll('[data-target]');
+    const wrap     = section.querySelector('.cv-wrap');
+
+    // Stagger the grid sweep left to right, row by row.
+    section.querySelectorAll('.cv-table tbody tr').forEach((tr, r) => {
+        tr.querySelectorAll('.cv').forEach((td, c) => {
+            td.style.setProperty('--cvd', r + c);
+        });
+    });
+
+    let onScreen = false;
+    new IntersectionObserver(entries => {
+        entries.forEach(e => { onScreen = e.isIntersecting; });
+    }, { threshold: 0.12 }).observe(section);
+
+    setInterval(() => {
+        if (!onScreen || document.hidden) return;
+
+        // Bars: drop the width, force a reflow so the transition restarts from
+        // zero, then put it back. Without the reflow the browser coalesces both
+        // writes and nothing moves.
+        bars.forEach(b => b.classList.remove('seq-in'));
+        void section.offsetWidth;
+        bars.forEach(b => b.classList.add('seq-in'));
+
+        counters.forEach((el, i) => {
+            setTimeout(() => scifiCounter(el, parseInt(el.dataset.target), 1400), i * 110);
+        });
+
+        if (wrap) {
+            wrap.classList.remove('cv-pulse');
+            void wrap.offsetWidth;
+            wrap.classList.add('cv-pulse');
+        }
+    }, 10000);
 }
 
 // ─── THEME SWITCHER ──────────────────────────────────────────────────────────
@@ -422,10 +505,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     initNavHighlight();
     initStimTabs();
     initPromptSwitch();
-    initMatrixRail();
-    initMatrixTotals();
     initResultPicker();
     initOcRoster();
     initOcMaps();
     initOcResults();
+    initSequenced();
+    initCorpusReplay();
+    initMotivationSequence();
 });

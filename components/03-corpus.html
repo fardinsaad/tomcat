@@ -1,0 +1,150 @@
+<section id="corpus">
+    <div class="wrap">
+        <div class="sh">
+            <div class="sh-label">Evidence Base</div>
+            <div class="sh-title">What the Six Metrics Rest On</div>
+            <div class="sh-sub">Every claim in the paper traces to one of three corpora. Each response is graded on
+                three components &mdash; instruction type, inferred intent, and the action sequence &mdash; so the
+                response counts below multiply by three into individually scored judgements.</div>
+        </div>
+
+        <!-- ── three corpora ──────────────────────────────────────────────── -->
+        <div class="cb-grid">
+            <div class="cb cb-a">
+                <div class="cb-era">Original study</div>
+                <div class="cb-t">Doors, Keys &amp; Gems</div>
+                <div class="cb-big"><span data-target="640">0</span><small>responses</small></div>
+                <div class="cb-split">
+                    <div class="cb-seg cb-seg-llm" style="--w:18.75%"><span>120 LLM</span></div>
+                    <div class="cb-seg cb-seg-hum" style="--w:81.25%"><span>520 human</span></div>
+                </div>
+                <div class="cb-meta">3 LLMs &times; 2 variants &times; 20 scenarios, plus 52 participants.
+                    Annotated by hand against a fixed rubric.</div>
+            </div>
+
+            <div class="cb cb-b">
+                <div class="cb-era">Robustness</div>
+                <div class="cb-t">Perturbations</div>
+                <div class="cb-big"><span data-target="600">0</span><small>responses</small></div>
+                <div class="cb-split">
+                    <div class="cb-seg cb-seg-llm" style="--w:100%"><span>600 LLM</span></div>
+                </div>
+                <div class="cb-meta">3 LLMs &times; 2 variants &times; 5 conditions &times; 20 scenarios. The
+                    re-run baseline plus four perturbation axes, all hand annotated.</div>
+            </div>
+
+            <div class="cb cb-c">
+                <div class="cb-era">Generalizability</div>
+                <div class="cb-t">Overcooked</div>
+                <div class="cb-big"><span data-target="280">0</span><small>responses</small></div>
+                <div class="cb-split">
+                    <div class="cb-seg cb-seg-llm" style="--w:100%"><span>280 LLM</span></div>
+                </div>
+                <div class="cb-meta">7 LLMs &times; 2 variants &times; 20 scenarios, in a second environment.
+                    Scored automatically against a structured answer format.</div>
+            </div>
+        </div>
+
+        <!-- ── coverage grid: every cell that was actually run ─────────────── -->
+        <div class="cv-wrap">
+            <div class="cv-head">
+                <div class="cv-title">Design coverage</div>
+                <div class="cv-legend">
+                    <span class="cv-k cv-k-pub"></span> published
+                    <span class="cv-k cv-k-pert"></span> perturbation
+                    <span class="cv-k cv-k-oc"></span> Overcooked
+                    <span class="cv-k cv-k-na"></span> not applicable
+                </div>
+            </div>
+
+            <div class="cv-scroll">
+                <table class="cv-table">
+                    <thead>
+                        <tr>
+                            <th class="cv-rowh">Model</th>
+                            <th>CP<small>orig</small></th>
+                            <th>Fs<small>orig</small></th>
+                            <th>CP<small>re-run</small></th>
+                            <th>Fs<small>re-run</small></th>
+                            <th>CP<small>P1&ndash;P4</small></th>
+                            <th>Fs<small>P1&ndash;P4</small></th>
+                            <th>CP<small>Overcooked</small></th>
+                            <th>Fs<small>Overcooked</small></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="cv-rowh m1"><i class="mdot"></i>GPT-4o</td>
+                            <td class="cv c-pub">20</td><td class="cv c-pub">20</td>
+                            <td class="cv c-pert">20</td><td class="cv c-pert">20</td>
+                            <td class="cv c-pert">80</td><td class="cv c-pert">80</td>
+                            <td class="cv c-oc">20</td><td class="cv c-oc">20</td>
+                        </tr>
+                        <tr>
+                            <td class="cv-rowh m2"><i class="mdot"></i>DeepSeek-R1</td>
+                            <td class="cv c-pub">20</td><td class="cv c-pub">20</td>
+                            <td class="cv c-pert">20</td><td class="cv c-pert">20</td>
+                            <td class="cv c-pert">80</td><td class="cv c-pert">80</td>
+                            <td class="cv c-oc">20</td><td class="cv c-oc">20</td>
+                        </tr>
+                        <tr>
+                            <td class="cv-rowh m3"><i class="mdot"></i>Gemma-3-27B</td>
+                            <td class="cv c-pub">20</td><td class="cv c-pub">20</td>
+                            <td class="cv c-pert">20</td><td class="cv c-pert">20</td>
+                            <td class="cv c-pert">80</td><td class="cv c-pert">80</td>
+                            <td class="cv c-oc">20</td><td class="cv c-oc">20</td>
+                        </tr>
+                        <tr>
+                            <td class="cv-rowh m4"><i class="mdot"></i>Claude Opus 5</td>
+                            <td class="cv c-na">&mdash;</td><td class="cv c-na">&mdash;</td>
+                            <td class="cv c-na">&mdash;</td><td class="cv c-na">&mdash;</td>
+                            <td class="cv c-na">&mdash;</td><td class="cv c-na">&mdash;</td>
+                            <td class="cv c-oc">20</td><td class="cv c-oc">20</td>
+                        </tr>
+                        <tr>
+                            <td class="cv-rowh m5"><i class="mdot"></i>GPT-5.6 Sol</td>
+                            <td class="cv c-na">&mdash;</td><td class="cv c-na">&mdash;</td>
+                            <td class="cv c-na">&mdash;</td><td class="cv c-na">&mdash;</td>
+                            <td class="cv c-na">&mdash;</td><td class="cv c-na">&mdash;</td>
+                            <td class="cv c-oc">20</td><td class="cv c-oc">20</td>
+                        </tr>
+                        <tr>
+                            <td class="cv-rowh m6"><i class="mdot"></i>Gemini 3.1 Pro</td>
+                            <td class="cv c-na">&mdash;</td><td class="cv c-na">&mdash;</td>
+                            <td class="cv c-na">&mdash;</td><td class="cv c-na">&mdash;</td>
+                            <td class="cv c-na">&mdash;</td><td class="cv c-na">&mdash;</td>
+                            <td class="cv c-oc">20</td><td class="cv c-oc">20</td>
+                        </tr>
+                        <tr>
+                            <td class="cv-rowh m7"><i class="mdot"></i>DeepSeek V4 Pro</td>
+                            <td class="cv c-na">&mdash;</td><td class="cv c-na">&mdash;</td>
+                            <td class="cv c-na">&mdash;</td><td class="cv c-na">&mdash;</td>
+                            <td class="cv c-na">&mdash;</td><td class="cv c-na">&mdash;</td>
+                            <td class="cv c-oc">20</td><td class="cv c-oc">20</td>
+                        </tr>
+                        <tr class="cv-hum">
+                            <td class="cv-rowh m8"><i class="mdot"></i>52 participants</td>
+                            <td class="cv c-pub" colspan="2">520 (same info as CP)</td>
+                            <td class="cv c-na" colspan="6">&mdash;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ── the total, built up ────────────────────────────────────────── -->
+        <div class="cb-total">
+            <div class="cbt-bar">
+                <div class="cbt-seg cbt-a" style="--w:42.1%"><span>1,920</span></div>
+                <div class="cbt-seg cbt-b" style="--w:39.5%"><span>1,800</span></div>
+                <div class="cbt-seg cbt-c" style="--w:18.4%"><span>840</span></div>
+            </div>
+            <div class="cbt-key">
+                <span><i class="cbt-i cbt-a"></i> Doors, Keys &amp; Gems &mdash; 1,920</span>
+                <span><i class="cbt-i cbt-b"></i> Perturbations &mdash; 1,800</span>
+                <span><i class="cbt-i cbt-c"></i> Overcooked &mdash; 840</span>
+                <b class="cbt-sum"><span data-target="4560" data-display="4,560">0</span> graded components</b>
+            </div>
+        </div>
+    </div>
+</section>

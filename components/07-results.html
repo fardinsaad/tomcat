@@ -1,8 +1,8 @@
 <section id="results">
     <div class="wrap">
         <div class="sh">
-            <div class="sh-label">First Results</div>
-            <div class="sh-title">Perturbation Results</div>
+            <div class="sh-label">Results</div>
+            <div class="sh-title">Overall Results</div>
             <div class="sh-sub">All six conditions annotated for every model and variant, 720 samples. Every cell below is a mean over the same
                 twenty scenarios, so the comparison is paired throughout. Select a model and variant to view its results.</div>
         </div>
@@ -89,37 +89,121 @@
             <span style="margin-left:auto">paired tests vs re-run &mdash; <b>0 of 36 omnibus tests significant</b> across all six</span>
         </div>
 
-        <div class="find-grid">
-            <div class="find f-key">
-                <div class="find-h">The headline</div>
-                <div class="find-b">Averaged over the four perturbations, every metric lands within <b>0.015</b> of the
-                    re-run baseline &mdash; and Action Optimality lands on it <b>exactly</b>. No comparison reaches
-                    significance. Aggregate performance does not depend on surface form.</div>
-            </div>
-            <div class="find">
-                <div class="find-h">But the items move</div>
-                <div class="find-b">12&ndash;14 of 20 scenarios change on at least one metric in every condition. The
-                    stability is a <em>cancellation</em>, not an absence of effect &mdash; which is why the per-condition
-                    diagnosis below matters.</div>
-            </div>
-            <div class="find f-key">
-                <div class="find-h">The Fs-CoT advantage survives</div>
-                <div class="find-b">Fs-CoT beats CP on plan optimality by <b>+.55 / +.55 / +.45 / +.55 / +.50</b>
-                    across the re-run and P1&ndash;P4. The paper's central claim does not depend on the grid's surface
-                    form &mdash; which turns a null result into a positive one.</div>
-            </div>
-            <div class="find f-warn">
-                <div class="find-h">One failure, both variants</div>
-                <div class="find-b">CP collected the key at <b>(5,5)</b> in <code>10.txt</code> and
-                    <code>10b.txt</code>; Fs-CoT collected <b>(1,2)</b> in <code>19.txt</code>. All three are
-                    unreachable distractor cells. Same mistake, different prompts &mdash; so it belongs to the model,
-                    not the prompting strategy.</div>
-            </div>
-            <div class="find f-good">
-                <div class="find-h">Exemplars buy stability too</div>
-                <div class="find-b">Under perturbation, Fs-CoT changes <b>5&ndash;10</b> of 20 scenarios per condition
-                    against CP's <b>12&ndash;14</b>. The worked examples do not only raise the score; they reduce how
-                    far individual decisions drift.</div>
+        <div class="flow-head">
+            <div class="flow-h-t">What the table adds up to</div>
+            <div class="flow-h-s">Five findings, in the order they follow from one another.
+                <span class="flow-hint">Hover a card for the numbers behind it.</span></div>
+        </div>
+
+        <div class="pipeline-scroller">
+            <div class="pipeline">
+
+                <div class="stage stg-key">
+                    <div class="stage-n">01</div>
+                    <div class="s-num">The headline</div>
+                    <span class="s-icon">&#128202;</span>
+                    <div class="s-title">Aggregates do not move</div>
+                    <div class="s-desc">Averaged over the four perturbations, every metric lands within
+                        <b>0.015</b> of the re-run baseline &mdash; and Action Optimality lands on it
+                        <b>exactly</b>. Performance does not depend on surface form.</div>
+                    <div class="chips">
+                        <span class="chip">&le; 0.015 drift</span>
+                        <span class="chip chip-good">0 of 36 significant</span>
+                    </div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">Largest mean shift</span><span class="dr-v">0.015</span></div>
+                        <div class="dr-row"><span class="dr-k">Action Optimality</span><span class="dr-v">&plusmn;0.000</span></div>
+                        <div class="dr-row"><span class="dr-k">Omnibus tests run</span><span class="dr-v">36</span></div>
+                        <div class="dr-row"><span class="dr-k">Reaching p &lt; .05</span><span class="dr-v">0</span></div>
+                    </div>
+                </div>
+
+                <div class="conn"><div class="conn-line cl-complete"></div></div>
+
+                <div class="stage stg-warn">
+                    <div class="stage-n">02</div>
+                    <div class="s-num">But the items move</div>
+                    <span class="s-icon">&#127922;</span>
+                    <div class="s-title">Stability is a cancellation</div>
+                    <div class="s-desc">12&ndash;14 of 20 scenarios change on at least one metric in every
+                        condition. The aggregate holds because gains and losses offset &mdash; not because
+                        nothing happened.</div>
+                    <div class="chips">
+                        <span class="chip">12&ndash;14 of 20 churn</span>
+                        <span class="chip chip-warn">per-condition diagnosis</span>
+                    </div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">CP churn, P1&ndash;P4</span><span class="dr-v">12&ndash;14</span></div>
+                        <div class="dr-row"><span class="dr-k">Fs-CoT churn</span><span class="dr-v">5&ndash;10</span></div>
+                        <div class="dr-row"><span class="dr-k">Scenarios per cell</span><span class="dr-v">20</span></div>
+                    </div>
+                </div>
+
+                <div class="conn"><div class="conn-line cl-complete"></div></div>
+
+                <div class="stage stg-key">
+                    <div class="stage-n">03</div>
+                    <div class="s-num">The claim survives</div>
+                    <span class="s-icon">&#127919;</span>
+                    <div class="s-title">Fs-CoT still beats CP</div>
+                    <div class="s-desc">Fs-CoT leads CP on plan optimality in every condition. The paper's
+                        central claim does not rest on the grid's surface form &mdash; which turns a null
+                        result into a positive one.</div>
+                    <div class="chips">
+                        <span class="chip chip-good">+.45 to +.55</span>
+                        <span class="chip">all 5 conditions</span>
+                    </div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">Re-run</span><span class="dr-v">+0.55</span></div>
+                        <div class="dr-row"><span class="dr-k">P1 &middot; Padding</span><span class="dr-v">+0.55</span></div>
+                        <div class="dr-row"><span class="dr-k">P2 &middot; Colour</span><span class="dr-v">+0.45</span></div>
+                        <div class="dr-row"><span class="dr-k">P3 &middot; Distractor</span><span class="dr-v">+0.55</span></div>
+                        <div class="dr-row"><span class="dr-k">P4 &middot; Relocation</span><span class="dr-v">+0.50</span></div>
+                    </div>
+                </div>
+
+                <div class="conn"><div class="conn-line cl-complete"></div></div>
+
+                <div class="stage stg-bad">
+                    <div class="stage-n">04</div>
+                    <div class="s-num">One failure, both variants</div>
+                    <span class="s-icon">&#128273;</span>
+                    <div class="s-title">It belongs to the model</div>
+                    <div class="s-desc">Both variants reached for an unreachable distractor key. Same
+                        mistake under different prompts, so the fault is the model's grounding &mdash; not
+                        the prompting strategy.</div>
+                    <div class="chips">
+                        <span class="chip chip-bad">3 grids</span>
+                        <span class="chip">unreachable cells</span>
+                    </div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">CP &middot; 10.txt</span><span class="dr-v">(5,5)</span></div>
+                        <div class="dr-row"><span class="dr-k">CP &middot; 10b.txt</span><span class="dr-v">(5,5)</span></div>
+                        <div class="dr-row"><span class="dr-k">Fs-CoT &middot; 19.txt</span><span class="dr-v">(1,2)</span></div>
+                        <div class="dr-row"><span class="dr-k">Rule</span><span class="dr-v">B &middot; unreachable</span></div>
+                    </div>
+                </div>
+
+                <div class="conn"><div class="conn-line cl-complete"></div></div>
+
+                <div class="stage stg-good">
+                    <div class="stage-n">05</div>
+                    <div class="s-num">Exemplars buy stability</div>
+                    <span class="s-icon">&#129704;</span>
+                    <div class="s-title">Less drift, not just more score</div>
+                    <div class="s-desc">Under perturbation Fs-CoT changes 5&ndash;10 of 20 scenarios per
+                        condition against CP's 12&ndash;14. Worked examples raise the score and narrow how
+                        far individual decisions wander.</div>
+                    <div class="chips">
+                        <span class="chip chip-good">roughly half the churn</span>
+                    </div>
+                    <div class="stage-drawer">
+                        <div class="dr-row"><span class="dr-k">Fs-CoT churn</span><span class="dr-v">5&ndash;10 / 20</span></div>
+                        <div class="dr-row"><span class="dr-k">CP churn</span><span class="dr-v">12&ndash;14 / 20</span></div>
+                        <div class="dr-row"><span class="dr-k">Conditions</span><span class="dr-v">P1&ndash;P4</span></div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
