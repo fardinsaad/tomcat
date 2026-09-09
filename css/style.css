@@ -2707,9 +2707,21 @@ footer {
     transition: color .16s ease, border-color .16s ease, background .16s ease;
 }
 
+.stim-tab:not(.on) {
+    /* --text-3 is #49566b, all but invisible on this strip: the tabs read as a
+       caption. Lifting the inactive state is the affordance that has to work
+       even when every animation is switched off. */
+    color: #8b98b4;
+}
+
+.stim-tab + .stim-tab {
+    box-shadow: inset 1px 0 0 rgba(255, 255, 255, .07);
+}
+
 .stim-tab:hover {
-    color: var(--text-2);
-    background: rgba(255, 255, 255, .03)
+    color: var(--text);
+    background: rgba(99, 102, 241, .07);
+    border-bottom-color: rgba(99, 102, 241, .45);
 }
 
 .stim-tab.on {
@@ -2788,8 +2800,20 @@ footer {
     transition: background .18s ease, color .18s ease;
 }
 
+.pr-btn:not(.on) {
+    /* Without an outline the inactive half reads as a label sitting next to a
+       button rather than the other half of a toggle. */
+    color: #9fb0cc;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1);
+}
+
 .pr-btn:hover {
     color: var(--text)
+}
+
+.pr-btn:not(.on):hover {
+    background: rgba(99, 102, 241, .1);
+    box-shadow: inset 0 0 0 1px rgba(99, 102, 241, .4);
 }
 
 .pr-btn.on {
@@ -4055,7 +4079,16 @@ nav {
 }
 
 .mv-pick select {
-    background: var(--bg-card);
+    /* appearance:none so the caret is ours: the native one renders in the
+       system colour and disappears against a dark control. */
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--bg-card);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23a5b4fc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right .85rem center;
+    background-size: 11px 7px;
+    padding-right: 2.3rem;
     color: var(--text);
     border: 1px solid var(--border-hi);
     border-radius: var(--r);
@@ -4068,7 +4101,7 @@ nav {
 }
 
 .mv-pick select:hover {
-    background: var(--bg-hover);
+    background-color: var(--bg-hover);
     border-color: var(--indigo)
 }
 
@@ -5297,4 +5330,84 @@ nav {
     background-position: 0 0, 0 100%, 0 0, 100% 0;
     background-repeat: no-repeat;
     animation: antsMarch var(--ant-speed, 1.6s) linear infinite;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   AFFORDANCE NUDGE
+   Three controls on this page look like decoration until you click them: the
+   stimulus tabs, the CP / Fs-CoT toggle and the model pickers.
+
+   Two levels of fix. The resting styles above are the real one -- brighter
+   inactive text, a segment outline, a caret we draw ourselves -- and they
+   work with every animation disabled. On top of that, a control nudges when
+   it first scrolls into view: an accent ring swells out of it and keeps going
+   until the control is actually USED.
+
+   Used means the state changed -- a different variant picked, a different tab
+   opened -- not merely hovered or focused. A reader who brushes past with the
+   mouse has not learned anything, so the ring keeps asking. Each group
+   disarms on its own: switching the prompt toggle leaves the model picker
+   still glowing. There is no timeout, by design.
+   ══════════════════════════════════════════════════════════════════════════ */
+@keyframes nudgeRing {
+    0%       { box-shadow: 0 0 0 0 rgba(99, 102, 241, .5),  0 0 0 0 rgba(99, 102, 241, 0); }
+    45%      { box-shadow: 0 0 0 7px rgba(99, 102, 241, 0),  0 0 14px 2px rgba(99, 102, 241, .34); }
+    70%, 100%{ box-shadow: 0 0 0 0 rgba(99, 102, 241, 0),    0 0 0 0 rgba(99, 102, 241, 0); }
+}
+
+/* the pickers ------------------------------------------------------------ */
+.mv-pick select.nudge {
+    animation: nudgeRing 2.4s ease-out infinite;
+    border-color: rgba(99, 102, 241, .55);
+}
+
+/* the CP / Fs-CoT toggle -------------------------------------------------- */
+/* The ring goes on the half you have NOT selected -- that is the one whose
+   clickability is in question. */
+.pr-btn.nudge:not(.on) {
+    animation: nudgeSeg 2.4s ease-out infinite;
+    color: #c7d2fe;
+}
+
+@keyframes nudgeSeg {
+    0% {
+        box-shadow: inset 0 0 0 1px rgba(99, 102, 241, .45),
+                    0 0 0 0 rgba(99, 102, 241, .5);
+    }
+    45% {
+        box-shadow: inset 0 0 0 1px rgba(99, 102, 241, .45),
+                    0 0 0 7px rgba(99, 102, 241, 0), 0 0 14px 2px rgba(99, 102, 241, .34);
+    }
+    70%, 100% {
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1),
+                    0 0 0 0 rgba(99, 102, 241, 0);
+    }
+}
+
+/* the stimulus tabs ------------------------------------------------------- */
+/* The ring rides the tab that is currently open -- Initial, at rest -- so the
+   eye lands on the strip at the point the sequence starts. It is safe to
+   reuse nudgeRing here: .stim-tab.on carries no box-shadow of its own, and
+   the inset divider belongs to .stim-tab + .stim-tab, which never matches the
+   first tab. The strip disarms the moment a different tab is opened, so the
+   ring never has to ride tab two or three. */
+.stim-tabs {
+    position: relative;
+}
+
+.stim-tabs.nudge .stim-tab.on {
+    animation: nudgeRing 2.4s ease-out infinite;
+}
+
+.stim-tabs.nudge .stim-tab:not(.on) {
+    color: #b6c2da;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mv-pick select.nudge,
+    .pr-btn.nudge:not(.on),
+    .stim-tabs.nudge .stim-tab.on {
+        animation: none !important;
+    }
+    /* the resting affordances above carry it on their own */
 }

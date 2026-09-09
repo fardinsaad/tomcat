@@ -202,6 +202,10 @@ function initStimTabs() {
 
         tabs.forEach((tab, i) => {
             tab.addEventListener('click', () => {
+                // Re-clicking the open tab still replays its GIF, so the
+                // handler runs either way -- but it must not count as having
+                // understood the strip, so only a real switch disarms.
+                if (!tab.classList.contains('on')) disarmNudge(tab.parentElement);
                 tabs.forEach(t => t.classList.remove('on'));
                 tab.classList.add('on');
                 imgs.forEach((im, j) => {
@@ -225,6 +229,7 @@ function initPromptSwitch() {
         const panes = scope.querySelectorAll('.pr-pane');
         btns.forEach(btn => {
             btn.addEventListener('click', () => {
+                if (!btn.classList.contains('on')) disarmNudge(sw);
                 btns.forEach(b => b.classList.remove('on'));
                 btn.classList.add('on');
                 panes.forEach(p => { p.hidden = p.dataset.pane !== btn.dataset.pane; });
@@ -265,6 +270,64 @@ function initSequenced() {
     document.querySelectorAll(
         '.tt-table tbody tr, .cb-split .cb-seg, .cbt-seg'
     ).forEach(el => { el.classList.add('seq'); io.observe(el); });
+}
+
+// ─── AFFORDANCE NUDGE ────────────────────────────────────────────────────────
+// Marks a control as nudgeable when it scrolls into view, and clears the mark
+// when the control is actually USED. Three rules:
+//
+//   · nudge on screen only — a pulse that plays while the reader is three
+//     sections away is spent for nothing, so the observer starts it;
+//   · no timeout — the ring keeps asking until it is answered. A control
+//     nobody has touched has not done its job yet;
+//   · used means the STATE CHANGED, not hovered, focused or clicked. Picking
+//     Fs-CoT over CP counts. Sweeping the mouse past on the way down the page
+//     does not, and neither does clicking the tab that is already open.
+//
+// Each group disarms alone: switching the prompt toggle leaves the model
+// picker glowing, because the reader has learned nothing about the picker.
+//
+// The targets that carry .nudge are stashed on the group element so the
+// existing interaction handlers can disarm it without knowing any of this.
+const NUDGE_TARGETS = new WeakMap();
+
+function nudgeGroup(group, targets) {
+    if (!group || !targets.length) return;
+    NUDGE_TARGETS.set(group, targets);
+
+    const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            targets.forEach(t => t.classList.add('nudge'));
+            obs.unobserve(e.target);
+        });
+    }, { threshold: 0.5 });
+    io.observe(group);
+}
+
+// Called from the handler that performs the state change, so it cannot fire
+// on a hover or on a click that selected what was already selected.
+function disarmNudge(group) {
+    const targets = NUDGE_TARGETS.get(group);
+    if (!targets) return;
+    targets.forEach(t => t.classList.remove('nudge'));
+    NUDGE_TARGETS.delete(group);
+}
+
+function initAffordances() {
+    // model / variant pickers — the select is both group and target
+    document.querySelectorAll('.mv-pick select')
+        .forEach(sel => nudgeGroup(sel, [sel]));
+
+    // CP / Fs-CoT toggles — ring the half that is NOT selected: that is the
+    // one whose clickability is in question
+    document.querySelectorAll('.pr-switch').forEach(sw => {
+        nudgeGroup(sw, [...sw.querySelectorAll('.pr-btn')]);
+    });
+
+    // stimulus tabs — the strip carries the class, the open tab wears the ring
+    document.querySelectorAll('.stim-tabs')
+        .forEach(strip => nudgeGroup(strip, [strip]));
 }
 
 // ─── MOTIVATION MARK SEQUENCE (component 02) ─────────────────────────────────
@@ -420,7 +483,7 @@ function initResultPicker() {
     const bodies = document.querySelectorAll('.res-body');
     const show = key => bodies.forEach(b => { b.hidden = b.dataset.mv !== key; });
     show(sel.value);
-    sel.addEventListener('change', () => show(sel.value));
+    sel.addEventListener('change', () => { disarmNudge(sel); show(sel.value); });
 }
 
 // ─── OVERCOOKED PODIUM (component 11) ────────────────────────────────────────
@@ -492,7 +555,7 @@ function initOcResults() {
     const bodies = document.querySelectorAll('.oc-body');
     const show = key => bodies.forEach(b => { b.hidden = b.dataset.oc !== key; });
     show(sel.value);
-    sel.addEventListener('change', () => show(sel.value));
+    sel.addEventListener('change', () => { disarmNudge(sel); show(sel.value); });
 }
 
 // ─── BOOT ─────────────────────────────────────────────────────────────────────
@@ -512,4 +575,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     initSequenced();
     initCorpusReplay();
     initMotivationSequence();
+    initAffordances();
 });
