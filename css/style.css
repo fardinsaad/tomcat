@@ -5411,3 +5411,97 @@ nav {
     }
     /* the resting affordances above carry it on their own */
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   PAPER BAR  —  Paper · Code · Cite, under the hero subtitle
+   Same pattern as the AVCORP site: one pill split into segments, a slowly
+   rotating gradient rim, and a BibTeX drop-down under it. The rim and the
+   Paper segment take Elsevier's orange so the primary action reads first;
+   Code and Cite stay neutral. Colours otherwise come from the site palette
+   (teal, indigo), so the bar sits correctly under every theme.
+   ══════════════════════════════════════════════════════════════════════════ */
+@property --pb-a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes pbSpin  { to { --pb-a: 360deg; } }
+@keyframes pbIn    { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@keyframes pbShine { 0% { transform: translateX(-120%) skewX(-18deg); } 60%, 100% { transform: translateX(260%) skewX(-18deg); } }
+
+.paper-bar {
+    display: flex; width: max-content; max-width: 100%; margin: 1.35rem auto 0;
+    padding: 3px; gap: 3px; border-radius: 999px; border: 1px solid transparent;
+    background:
+        linear-gradient(rgba(9, 13, 27, .92), rgba(9, 13, 27, .92)) padding-box,
+        conic-gradient(from var(--pb-a), #f97316, #fde68a 18%, #14b8a6 38%, #0b1020 55%, #6366f1 72%, #f97316) border-box;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .35), 0 0 22px rgba(249, 115, 22, .14);
+    animation: pbIn .8s cubic-bezier(.2, .8, .2, 1) .15s both, pbSpin 9s linear infinite;
+}
+.pb-seg {
+    position: relative; display: inline-flex; align-items: center; gap: 7px;
+    padding: 5px 13px 5px 12px; border: 0; border-radius: 999px;
+    font: 600 12.5px/1.2 'Space Grotesk', 'Inter', sans-serif; letter-spacing: .01em;
+    color: var(--text); background: transparent; text-decoration: none;
+    overflow: hidden; transition: background .2s, color .2s;
+}
+.pb-seg b   { font-weight: 600; }
+.pb-ico     { flex: none; }
+.pb-seg:focus-visible { outline: 2px solid #5eead4; outline-offset: 2px; }
+
+/* Paper — the primary action */
+.pb-paper { background: linear-gradient(120deg, rgba(234, 88, 12, .58), rgba(154, 52, 18, .22)); color: #fff7ed; }
+.pb-paper::after {
+    content: ''; position: absolute; inset: 0 auto 0 0; width: 40%; pointer-events: none;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .22), transparent);
+    transform: translateX(-120%) skewX(-18deg); animation: pbShine 5.5s ease-in-out 1.4s infinite;
+}
+.pb-paper .pb-ico { color: #fed7aa; }
+.pb-paper em {
+    font: 500 10.5px/1 'JetBrains Mono', monospace; font-style: normal; color: #fed7aa;
+    padding: 3px 7px; border-radius: 999px; background: rgba(0, 0, 0, .3); border: 1px solid rgba(254, 215, 170, .2);
+}
+.pb-paper:hover { background: linear-gradient(120deg, rgba(249, 115, 22, .78), rgba(194, 65, 12, .35)); }
+
+/* Code and Cite — secondary */
+.pb-code { color: #e9f7f5; }
+.pb-code .pb-ico { color: #5eead4; }
+.pb-code:hover { background: rgba(20, 184, 166, .14); color: #ffffff; }
+.pb-cite { cursor: pointer; color: #e9f7f5; padding-right: 12px; }
+.pb-cite:hover, .pb-cite[aria-expanded="true"] { background: rgba(165, 180, 252, .14); color: #ffffff; }
+.pb-quote { flex: none; color: #fdba74; margin-right: -2px; }
+.pb-chev  { flex: none; transition: transform .25s cubic-bezier(.2, .8, .2, 1); }
+.pb-cite[aria-expanded="true"] .pb-chev { transform: rotate(180deg); }
+
+/* BibTeX drop-down */
+.cite-box {
+    max-width: 760px; margin: .75rem auto 0; text-align: left; border-radius: 12px;
+    border: 1px solid rgba(99, 102, 241, .35); background: rgba(7, 11, 23, .95);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .4); overflow: hidden; animation: pbIn .3s ease both;
+}
+.cite-box[hidden] { display: none; }
+.cite-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 8px 6px 14px; border-bottom: 1px solid var(--border); background: rgba(99, 102, 241, .06);
+}
+.cite-head span { font: 700 9.5px 'JetBrains Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: #a5b4fc; }
+.cite-copy {
+    font: 700 .64rem 'JetBrains Mono', monospace; letter-spacing: .06em; text-transform: uppercase;
+    cursor: pointer; color: var(--text); background: rgba(255, 255, 255, .06);
+    border: 1px solid var(--border-hi); border-radius: 6px; padding: 5px 10px;
+}
+.cite-copy:hover { background: rgba(255, 255, 255, .12); }
+.cite-copy.ok    { color: #86efac; border-color: rgba(34, 197, 94, .5); }
+.cite-box pre {
+    margin: 0; padding: 12px 14px; font: 500 .72rem/1.65 'JetBrains Mono', monospace;
+    color: #c8d3e6; white-space: pre-wrap; overflow-wrap: anywhere;
+}
+
+/* The "Published in" badge is now a link to the same paper. Its entrance
+   animation holds a transform, so hover changes rim and glow only. */
+a.hero-badge { text-decoration: none; color: inherit; cursor: pointer; transition: border-color .25s, box-shadow .25s; }
+a.hero-badge:hover { border-color: rgba(34, 197, 94, .7); box-shadow: 0 6px 22px rgba(34, 197, 94, .2); }
+a.hero-badge:focus-visible { outline: 2px solid #5eead4; outline-offset: 3px; }
+
+.footer-text a { color: inherit; text-decoration: underline dotted rgba(255, 255, 255, .35); text-underline-offset: 3px; }
+.footer-text a:hover { color: var(--text); text-decoration-color: currentColor; }
+
+/* Narrow screens: drop the volume chip before anything wraps */
+@media (max-width: 440px) { .pb-paper em { display: none; } .pb-seg { padding: 5px 11px; } }
+@media (prefers-reduced-motion: reduce) { .paper-bar, .pb-paper::after, .cite-box { animation: none; } }

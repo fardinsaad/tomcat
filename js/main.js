@@ -558,6 +558,48 @@ function initOcResults() {
     sel.addEventListener('change', () => { disarmNudge(sel); show(sel.value); });
 }
 
+// ─── HERO PAPER BAR: Cite drop-down and Copy (component 01) ─────────────────
+// Delegated from document, so it works on the hero even though the component
+// is injected after this script runs. Escape closes the drop-down and puts
+// focus back on the Cite button.
+function initPaperBar() {
+    const toggle = (btn, open) => {
+        const box = document.getElementById(btn.getAttribute('aria-controls'));
+        if (!box) return;
+        box.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+    };
+
+    document.addEventListener('click', e => {
+        const cite = e.target.closest('.pb-cite');
+        if (cite) { toggle(cite, cite.getAttribute('aria-expanded') !== 'true'); return; }
+
+        const copy = e.target.closest('[data-copy-from]');
+        if (!copy) return;
+        const src  = document.querySelector(copy.dataset.copyFrom);
+        if (!src) return;
+        const done = () => {
+            copy.textContent = 'Copied'; copy.classList.add('ok');
+            setTimeout(() => { copy.textContent = 'Copy'; copy.classList.remove('ok'); }, 1600);
+        };
+        // The Clipboard API needs a secure context. GitHub Pages is HTTPS, but
+        // a file:// preview is not, so fall back to selecting the text.
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(src.textContent).then(done, () => {});
+        } else {
+            const r = document.createRange(); r.selectNodeContents(src);
+            const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+            try { if (document.execCommand('copy')) done(); } catch (err) { /* text stays selected */ }
+        }
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key !== 'Escape') return;
+        const open = document.querySelector('.pb-cite[aria-expanded="true"]');
+        if (open) { toggle(open, false); open.focus(); }
+    });
+}
+
 // ─── BOOT ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
     initThemes();
@@ -576,4 +618,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     initCorpusReplay();
     initMotivationSequence();
     initAffordances();
+    initPaperBar();
 });
