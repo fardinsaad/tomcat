@@ -4,8 +4,8 @@
             <div class="sh-label">Doors, Keys &amp; Gems</div>
             <div class="sh-title">Environmental Perturbations</div>
             <div class="sh-sub">Six conditions over the same twenty scenarios. Three perturbations provably preserve
-                the optimal plan; the fourth deliberately changes it. Without P4, &ldquo;nothing changed&rdquo; would be
-                evidence <em>for</em> the reviewer&rsquo;s concern rather than against it.</div>
+                the optimal plan; the fourth deliberately changes it. Without P4, an unchanged score could simply mean
+                a model that ignores the grid.</div>
         </div>
 
         <div class="cond-grid">
@@ -13,10 +13,10 @@
             <div class="cond c-base">
                 <div class="cond-k">original</div>
                 <div class="cond-t">Original</div>
-                <div class="cond-d">The published v1 scenarios, run on the endpoints available at the time. Retained
-                    untouched as the reference point for the paper&rsquo;s existing results.</div>
+                <div class="cond-d">The scenarios as first evaluated, on the model endpoints available at the time.
+                    Kept as the reference point for the original study&rsquo;s results.</div>
                 <span class="cond-inv inv-yes">plan &middot; reference</span>
-                <div class="cond-f"><span>120 calls</span><span>published</span></div>
+                <div class="cond-f"><span>120 calls</span><span>reference</span></div>
             </div>
 
             <div class="cond c-base">
@@ -24,9 +24,9 @@
                 <div class="cond-t">Original re-run</div>
                 <div class="cond-d">The same unperturbed scenarios re-run on the current serving stack. Several original
                     endpoints were retired, and all replacements serve fp8 weights &mdash; so every perturbation must be
-                    compared against this, not against v1.</div>
+                    compared against this, not against the original run.</div>
                 <span class="cond-inv inv-yes">plan unchanged</span>
-                <div class="cond-f"><span>120 calls</span><span>complete</span></div>
+                <div class="cond-f"><span>120 calls</span><span>baseline</span></div>
             </div>
 
             <div class="cond c-p1">
@@ -35,7 +35,7 @@
                 <div class="cond-d">A wall border added on all four sides. Every coordinate shifts by (+1, +1);
                     reachability, region structure, and the optimal plan are untouched. Only the numbers change.</div>
                 <span class="cond-inv inv-yes">plan-invariant</span>
-                <div class="cond-f"><span>120 calls</span><span>complete</span></div>
+                <div class="cond-f"><span>120 calls</span><span>tests coordinates</span></div>
             </div>
 
             <div class="cond c-p2">
@@ -45,7 +45,7 @@
                     glyphs <em>and</em> the instruction text. The lock-and-key structure is preserved exactly; only the
                     labels rotate.</div>
                 <span class="cond-inv inv-yes">plan-invariant</span>
-                <div class="cond-f"><span>120 calls</span><span>complete</span></div>
+                <div class="cond-f"><span>120 calls</span><span>tests colour words</span></div>
             </div>
 
             <div class="cond c-p3">
@@ -55,7 +55,7 @@
                     anywhere on the board, or a key placed in a region the agent cannot reach. The optimal plan is
                     unchanged; the search space is not.</div>
                 <span class="cond-inv inv-yes">plan-invariant</span>
-                <div class="cond-f"><span>120 calls</span><span>complete</span></div>
+                <div class="cond-f"><span>120 calls</span><span>tests object counts</span></div>
             </div>
 
             <div class="cond c-p4">
@@ -65,7 +65,7 @@
                     original position, never onto the principal&rsquo;s route. Intent is preserved but distances are
                     not &mdash; so the correct answer genuinely differs.</div>
                 <span class="cond-inv inv-no">plan changes by design</span>
-                <div class="cond-f"><span>120 calls</span><span>complete</span></div>
+                <div class="cond-f"><span>120 calls</span><span>tests grid use</span></div>
             </div>
 
         </div>
